@@ -1,11 +1,8 @@
+# -*- coding: utf-8 -*-
 import os
 
 from flask import Flask, request, flash, redirect, url_for, render_template
-from flask_restful import Api
 from flask_uploads import UploadSet, configure_uploads
-
-from .db import db
-from .api.user import User
 
 
 def create_app():
@@ -26,12 +23,15 @@ def create_app():
         pass
 
     # 加载数据库
+    from .db import db
     db.init_app(app)
 
     # 注册 API 路由
+    from flask_restful import Api
     api = Api(app)
 
-    api.add_resource(User, '/user', '/user/<string:user_id>')
+    from .api.user_api import UserAPI
+    api.add_resource(UserAPI, '/user', '/user/<string:user_id>')
 
     # 测试代码
     avatar = UploadSet('avatar', default_dest=lambda instance: app.instance_path + '/avatar')

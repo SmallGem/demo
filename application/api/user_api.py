@@ -1,10 +1,11 @@
+# -*- coding: utf-8 -*-
 from flask_restful import Resource, reqparse
 
 parser = reqparse.RequestParser()
 parser.add_argument('nickname', type=str, required=True, help='{error_msg}')
 
 
-class User(Resource):
+class UserAPI(Resource):
 
     def get(self, user_id=None):
         if user_id is None:

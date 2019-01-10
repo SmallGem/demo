@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # 测试用配置文件
 from datetime import timedelta
 
@@ -52,3 +53,8 @@ BUNDLE_ERRORS = True
 # Flask-Uploads 配置
 UPLOADED_FILES_ALLOW = IMAGES + DOCUMENTS + TEXT + ('pdf',)
 UPLOADED_FILES_DENY = SCRIPTS + EXECUTABLES
+
+# 本地配置
+API_URL = 'https://api.weixin.qq.com/cgi-bin/'
+APP_ID = 'wx7f4bc57e093289b4'
+APP_SECRET = '00e893edd2ea948c13f79cce996ad607'

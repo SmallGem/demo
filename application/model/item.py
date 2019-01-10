@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from sqlalchemy.dialects.postgresql import UUID
 
 from ..db import db, BaseMixin
