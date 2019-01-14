@@ -10,4 +10,4 @@ class Address(db.Model, BaseMixin):
     gender = db.Column(db.Integer, nullable=False)
     mobile = db.Column(db.String(11), nullable=False)
     address = db.Column(db.String(200), nullable=False)
-    user_id = db.Column(UUID, db.ForeignKey('user.id'), unique=True, nullable=False)
+    user_id = db.Column(UUID, nullable=False)

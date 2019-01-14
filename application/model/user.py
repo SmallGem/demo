@@ -13,3 +13,13 @@ class User(db.Model, BaseMixin):
     openid = db.Column(db.String(64), unique=True, nullable=False)
     session_key = db.Column(db.String(64), unique=True, nullable=False)
     token = db.Column(db.String(64), unique=True, nullable=False)
+
+    def to_json(self):
+        return {
+            'nickname': self.nickname,
+            'avatar': self.avatar,
+            'gender': self.gender,
+            'country': self.country,
+            'province': self.province,
+            'city': self.city
+        }
