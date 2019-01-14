@@ -12,19 +12,19 @@ def get_access_token():
     token = Token.query.get(1)
 
     if not token:
-        return _get_access_token_from_api(new=True)
+        return get_access_token_from_api(new=True)
 
     if datetime.utcnow() > token.expired_at:
-        return _get_access_token_from_api()
+        return get_access_token_from_api()
 
     return token.access_token
 
 
-def _get_access_token_from_api(new=False):
+def get_access_token_from_api(new=False):
 
     app_id = current_app.config['APP_ID']
     app_secret = current_app.config['APP_SECRET']
-    url_shard = 'token?grant_type=client_credential&appid=' + app_id + '&secret=' + app_secret
+    url_shard = 'cgi-bin/token?grant_type=client_credential&appid=' + app_id + '&secret=' + app_secret
 
     result = get(url_shard).json()
 

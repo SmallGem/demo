@@ -48,11 +48,16 @@ class ItemAPI(Resource):
         args = parser.parse_args()
 
         item = Item.query.get(item_id)
-        item.name = args['name']
-        item.image = args['image']
-        item.description = args['description']
-        item.price = args['price']
-        item.catalog_id = args['catalog_id']
+        if args['name'] != item.name:
+            item.name = args['name']
+        if args['image'] != item.image:
+            item.image = args['image']
+        if args['description'] != item.description:
+            item.description = args['description']
+        if args['price'] != item.price:
+            item.price = args['price']
+        if args['catalog_id'] != item.catalog_id:
+            item.catalog_id = args['catalog_id']
 
         db.session.commit()
 

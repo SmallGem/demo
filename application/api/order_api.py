@@ -2,13 +2,10 @@
 from flask_restful import Resource, reqparse
 
 from ..db import db
-from ..model.cart import Cart
-
-parser = reqparse.RequestParser()
-parser.add_argument('user_id', type=str, required=True, help='{error_msg}')
+from ..model.order import Order
 
 
-class CartAPI(Resource):
+class OrderAPI(Resource):
 
     def get(self, user_id):
         if user_id is None:

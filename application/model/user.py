@@ -4,7 +4,7 @@ from ..db import db, BaseMixin
 
 class User(db.Model, BaseMixin):
 
-    nickname = db.Column(db.String(16), nullable=False)
+    nickname = db.Column(db.String(16))
     avatar = db.Column(db.String(128))
     gender = db.Column(db.Integer)
     country = db.Column(db.String(16))
@@ -12,9 +12,8 @@ class User(db.Model, BaseMixin):
     city = db.Column(db.String(16))
     openid = db.Column(db.String(64), unique=True, nullable=False)
     session_key = db.Column(db.String(64), unique=True, nullable=False)
-    token = db.Column(db.String(64), unique=True, nullable=False)
 
-    def to_json(self):
+    def to_dist(self):
         return {
             'nickname': self.nickname,
             'avatar': self.avatar,

@@ -40,7 +40,8 @@ class CatalogAPI(Resource):
         args = parser.parse_args()
 
         catalog = Catalog.query.get(catalog_id)
-        catalog.catalog = args['catalog']
+        if args['catalog'] != catalog.catalog:
+            catalog.catalog = args['catalog']
 
         db.session.commit()
 

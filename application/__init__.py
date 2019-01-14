@@ -31,11 +31,19 @@ def create_app():
     api = Api(app)
 
     from .api.user_api import UserAPI
+    from .api.login_api import LoginApi
     from .api.catalog_api import CatalogAPI
     from .api.item_api import ItemAPI
+    from .api.cart_api import CartAPI
+    from .api.order_api import OrderAPI
+    from .api.address_api import AddressAPI
     api.add_resource(UserAPI, '/user', '/user/<string:user_id>')
+    api.add_resource(LoginApi, '/login')
     api.add_resource(CatalogAPI, '/catalog', '/catalog/<string:catalog_id>')
     api.add_resource(ItemAPI, '/item', '/item/<string:item_id>')
+    api.add_resource(CartAPI, '/cart', '/cart/<string:user_id>')
+    api.add_resource(OrderAPI, '/order', '/order/<string:user_id>')
+    api.add_resource(AddressAPI, '/address', '/address/<string:user_id>')
 
     # 测试代码
     avatar = UploadSet('avatar', default_dest=lambda instance: app.instance_path + '/avatar')
