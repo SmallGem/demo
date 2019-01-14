@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
-import uuid
 from datetime import datetime
 
-from flask import current_app
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import UUID
 

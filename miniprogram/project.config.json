@@ -1,15 +1,40 @@
 {
-	"description": "A WePY project",
+	"description": "Project configuration file",
+	"packOptions": {
+		"ignore": []
+	},
 	"setting": {
 		"urlCheck": true,
-		"es6": false,
-		"postcss": false,
-		"minified": false,
-		"newFeature": true
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"autoAudits": false
 	},
 	"compileType": "miniprogram",
+	"libVersion": "2.5.0",
 	"appid": "wx7f4bc57e093289b4",
-	"projectname": "miniprogram",
-	"miniprogramRoot": "dist/",
-	"condition": {}
+	"projectname": "%2Fhome%2Ftricker%2Fworkspace%2Fpython%2Fdemo%2Fminiprogram",
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"isGameTourist": false,
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": []
+		}
+	}
 }
