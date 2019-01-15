@@ -8,3 +8,8 @@ class Cart(db.Model, BaseMixin):
 
     items = db.Column(JSON, nullable=False)
     user_id = db.Column(UUID, unique=True, nullable=False)
+
+    def to_dist(self):
+        return {
+            'items': self.items
+        }
