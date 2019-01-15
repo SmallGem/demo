@@ -9,7 +9,7 @@ def create_app():
     # 创建并设置应用
     app = Flask(__name__, instance_relative_config=True)
     # 测试环境配置文件
-    app.config.from_object('application.config')
+    app.config.from_object('server.config')
 
     # 生产环境配置文件
     # with app.open_instance_resource('config.py') as f:
@@ -44,6 +44,10 @@ def create_app():
     api.add_resource(CartAPI, '/cart', '/cart/<string:user_id>')
     api.add_resource(OrderAPI, '/order', '/order/<string:user_id>')
     api.add_resource(AddressAPI, '/address', '/address/<string:user_id>')
+
+    @app.route('/')
+    def index():
+        return render_template('index.html')
 
     # 测试代码
     avatar = UploadSet('avatar', default_dest=lambda instance: app.instance_path + '/avatar')
