@@ -11,3 +11,11 @@ class Address(db.Model, BaseMixin):
     mobile = db.Column(db.String(11), nullable=False)
     address = db.Column(db.String(200), nullable=False)
     user_id = db.Column(UUID, nullable=False)
+
+    def to_dist(self):
+        return {
+            'name': self.name,
+            'gender': self.gender,
+            'mobile': self.mobile,
+            'address': self.address
+        }

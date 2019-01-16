@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 
-from flask import Flask, request, flash, redirect, url_for, render_template
+from flask import Flask, request, flash, redirect, url_for, render_template, make_response, session
 from flask_uploads import UploadSet, configure_uploads
 
 
@@ -31,14 +31,12 @@ def create_app():
     api = Api(app)
 
     from .api.user_api import UserAPI
-    from .api.login_api import LoginApi
     from .api.catalog_api import CatalogAPI
     from .api.item_api import ItemAPI
     from .api.cart_api import CartAPI
     from .api.order_api import OrderAPI
     from .api.address_api import AddressAPI
     api.add_resource(UserAPI, '/user', '/user/<string:user_id>')
-    api.add_resource(LoginApi, '/login')
     api.add_resource(CatalogAPI, '/catalog', '/catalog/<string:catalog_id>')
     api.add_resource(ItemAPI, '/item', '/item/<string:item_id>')
     api.add_resource(CartAPI, '/cart', '/cart/<string:user_id>')
@@ -65,5 +63,10 @@ def create_app():
     def show(name):
         url = avatar.url(name)
         return render_template('show.html', url=url)
+
+    @app.route('/cookie')
+    def cookie():
+        session['session-name'] = 'Tricker Pan'
+        return 'Hello, session'
 
     return app

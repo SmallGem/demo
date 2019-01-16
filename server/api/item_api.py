@@ -16,7 +16,7 @@ parser.add_argument('catalog_id', type=str, required=True, help='{error_msg}')
 
 class ItemAPI(Resource):
 
-    def get(self, item_id):
+    def get(self, item_id=None):
         if item_id is None:
             items = [item.to_dist() for item in Item.query.all()]
 

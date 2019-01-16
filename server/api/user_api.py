@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
+import uuid
+
+from flask import current_app, session
 from flask_restful import Resource, reqparse
 
+from ..controller.request_controller import get
 from ..db import db
 from ..model.user import User
 
@@ -11,6 +15,9 @@ parser.add_argument('gender', type=int, help='{error_msg}')
 parser.add_argument('country', type=str, help='{error_msg}')
 parser.add_argument('province', type=str, help='{error_msg}')
 parser.add_argument('city', type=str, help='{error_msg}')
+
+parser_post = parser.copy()
+parser_post.add_argument('code', type=str, required=True, help='{error_msg}')
 
 
 class UserAPI(Resource):
@@ -24,6 +31,40 @@ class UserAPI(Resource):
             user = User.query.get(user_id)
 
             return user.to_dist()
+
+    def post(self):
+        args = parser_post.parse_args()
+
+        app_id = current_app.config['APP_ID']
+        app_secret = current_app.config['APP_SECRET']
+        code = args['code']
+        url_shard = 'sns/jscode2session?appid=' + app_id + '&secret=' + app_secret \
+                    + '&js_code=' + code + '&grant_type=authorization_code'
+
+        result = get(url_shard)
+
+        if result['errcode'] != 0:
+            return result
+
+        user_id = uuid.uuid1()
+        user = User(
+            id=user_id,
+            nickname=args['nickname'],
+            avatar=args['avatar'],
+            gender=args['gender'],
+            country=args['country'],
+            province=args['province'],
+            city=args['city'],
+            openid=result['openid'],
+            session_key=result['session_key']
+        )
+
+        db.session.add(user)
+        db.session.commit()
+
+        session['token'] = user.id
+
+        return user.to_dist()
 
     def put(self, user_id):
         args = parser.parse_args()
