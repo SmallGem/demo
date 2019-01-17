@@ -4,8 +4,28 @@ class Navbar extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            username: null,
             navbarIsActive: false
         };
+    }
+
+    componentWillMount() {
+        const username = () => {
+            const cookie = document.cookie;
+            const sessionName = "username";
+            if (cookie.length > 0) {
+                const sessionStart = cookie.indexOf(sessionName + "=");
+                if (sessionStart !== -1) {
+                    const sessionEnd = cookie.indexOf(";", sessionStart + sessionName.length + 1);
+                    if (sessionEnd === -1) return cookie.substring(sessionStart + sessionName.length + 1);
+                    return cookie.substring(sessionStart + sessionName.length + 1, sessionEnd);
+                }
+            }
+        };
+
+        this.setState({
+            username: username()
+        })
     }
 
     navbarSwitch = () => {
@@ -14,43 +34,42 @@ class Navbar extends Component {
         });
     };
 
+    // logout = () => {
+    //     document.cookie = "username=null;path=/;expires=" + new Date().toUTCString();
+    // };
+
     render() {
         return (
-            <nav className="navbar" role={"navigation"} aria-label={"main navigation"}>
+            <nav className="navbar is-dark" role="navigation" aria-label="main navigation">
                 <div className="navbar-brand">
-                    <a href="https://bulma.io" className="navbar-item">
-                        <img src="https://bulma.io/images/bulma-logo.png" alt="logo" width={"122"} height={"28"}/>
-                    </a>
-                    <a onClick={this.navbarSwitch} role={"button"}
-                       className={this.state.navbarIsActive ? "navbar-burger burger is-active" : "navbar-burger burger"}
-                       aria-label={"menu"} aria-expanded={"false"} data-target="navbarBasicExample">
-                        <span aria-hidden={"true"}></span>
-                        <span aria-hidden={"true"}></span>
-                        <span aria-hidden={"true"}></span>
-                    </a>
+                    <div className="navbar-item">
+                        <img src="https://bulma.io/images/bulma-logo.png" alt="logo" width="122" height="28"/>
+                    </div>
+                    <div onClick={this.navbarSwitch} role="button"
+                         className={this.state.navbarIsActive ? "navbar-burger burger is-active" : "navbar-burger burger"}
+                         aria-label="menu" aria-expanded="false">
+                        <span aria-hidden="true"/>
+                        <span aria-hidden="true"/>
+                        <span aria-hidden="true"/>
+                    </div>
                 </div>
 
-                <div id="navbarBasicExample" className={this.state.navbarIsActive ? "navbar-menu is-active" : "navbar-menu"}>
+                <div id="navbarBasicExample"
+                     className={this.state.navbarIsActive ? "navbar-menu is-active" : "navbar-menu"}>
                     <div className="navbar-start">
-                        <a className="navbar-item">Home</a>
-                        <a className="navbar-item">Documentation</a>
-                        <div className="navbar-item has-dropdown is-hoverable">
-                            <a className="navbar-link">More</a>
-                            <div className="navbar-dropdown">
-                                <a className="navbar-item">About</a>
-                                <a className="navbar-item">Jobs</a>
-                                <a className="navbar-item">Contact</a>
-                                <hr className="navbar-divider"/>
-                                <a className="navbar-item">Report an issue</a>
-                            </div>
+                        <div className="navbar-item">
+                            管理后台
                         </div>
                     </div>
-
                     <div className="navbar-end">
-                        <div className="navbar-item">
-                            <div className="buttons">
-                                <a className="button is-primary">Sign up</a>
-                                <a className="button is-light">Log in</a>
+                        <div className="navbar-item has-dropdown is-hoverable">
+                            <div className="navbar-link">
+                                {this.state.username}
+                            </div>
+                            <div className="navbar-dropdown is-right">
+                                <div className="navbar-item">
+                                    <button className="button is-danger">退出</button>
+                                </div>
                             </div>
                         </div>
                     </div>
