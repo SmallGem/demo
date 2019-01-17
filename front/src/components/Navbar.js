@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import logo from '../logo.svg';
 
 class Navbar extends Component {
     constructor(props) {
@@ -16,17 +17,17 @@ class Navbar extends Component {
 
     render() {
         return (
-            <nav className="navbar" role={"navigation"} aria-label={"main navigation"}>
+            <nav className="navbar is-info" role="navigation" aria-label="main navigation">
                 <div className="navbar-brand">
-                    <a href="https://bulma.io" className="navbar-item">
-                        <img src="https://bulma.io/images/bulma-logo.png" alt="logo" width={"122"} height={"28"}/>
+                    <a href="#" className="navbar-item">
+                        <img src="https://bulma.io/images/bulma-logo.png" alt="logo" width="122" height="28"/>
                     </a>
-                    <a onClick={this.navbarSwitch} role={"button"}
+                    <a onClick={this.navbarSwitch} role="button"
                        className={this.state.navbarIsActive ? "navbar-burger burger is-active" : "navbar-burger burger"}
-                       aria-label={"menu"} aria-expanded={"false"} data-target="navbarBasicExample">
-                        <span aria-hidden={"true"}></span>
-                        <span aria-hidden={"true"}></span>
-                        <span aria-hidden={"true"}></span>
+                       aria-label="menu" aria-expanded="false">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
                     </a>
                 </div>
 
@@ -49,7 +50,7 @@ class Navbar extends Component {
                     <div className="navbar-end">
                         <div className="navbar-item">
                             <div className="buttons">
-                                <a className="button is-primary">Sign up</a>
+                                <a className="button is-success">Sign up</a>
                                 <a className="button is-light">Log in</a>
                             </div>
                         </div>
