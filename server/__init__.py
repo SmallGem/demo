@@ -47,6 +47,19 @@ def create_app():
     def index():
         return render_template('index.html')
 
+    @app.route('/login', methods=('GET', 'POST'))
+    def login():
+        if request.method == 'POST':
+            username = request.form['username']
+            password = request.form['password']
+
+            if username == 'admin' and password == 'admin':
+                response = make_response(render_template('index.html'))
+                response.set_cookie('username', username)
+                return response
+
+        return redirect(url_for('index'))
+
     # 测试代码
     avatar = UploadSet('avatar', default_dest=lambda instance: app.instance_path + '/avatar')
     configure_uploads(app, avatar)

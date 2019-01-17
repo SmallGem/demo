@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import Navbar from './components/Navbar';
 import Menu from './components/Menu';
 import Breadcrumb from './components/Breadcrumb'
