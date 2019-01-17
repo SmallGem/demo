@@ -12,3 +12,5 @@ build/
 *.egg-info/
 
 config.py
+static/*
+templates/*
