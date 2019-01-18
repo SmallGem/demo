@@ -2,9 +2,6 @@ import React, {Component} from 'react';
 import Navbar from './components/Navbar';
 import Menu from './components/Menu';
 import Home from './pages/Home';
-import Catalog from './pages/catalog/Catalog';
-import AddCatalog from './pages/catalog/Add';
-import ModifyCatalog from './pages/catalog/Modify';
 import Item from './pages/item/Item';
 import AddItem from './pages/item/Add';
 import ModifyItem from './pages/item/Modify';
@@ -29,15 +26,6 @@ class App extends Component {
         switch (this.state.activeMenuItem) {
             case "home":
                 page = <Home/>;
-                break;
-            case "catalogs":
-                page = <Catalog/>;
-                break;
-            case "addCatalog":
-                page = <AddCatalog/>;
-                break;
-            case "modifyCatalog":
-                page = <ModifyCatalog/>;
                 break;
             case "items":
                 page = <Item/>;

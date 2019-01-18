@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import logo from '../logo.svg';
 
 class Navbar extends Component {
     constructor(props) {
@@ -39,7 +40,10 @@ class Navbar extends Component {
             <nav className="navbar is-dark" role="navigation" aria-label="main navigation">
                 <div className="navbar-brand">
                     <div className="navbar-item">
-                        <img src="https://bulma.io/images/bulma-logo.png" alt="logo" width="122" height="28"/>
+                        <img src={logo} alt="React" width="64" height="64"/>
+                    </div>
+                    <div className="navbar-item">
+                        管理后台
                     </div>
                     <div onClick={this.navbarSwitch} role="button"
                          className={this.state.navbarIsActive ? "navbar-burger burger is-active" : "navbar-burger burger"}
@@ -52,11 +56,6 @@ class Navbar extends Component {
 
                 <div id="navbarBasicExample"
                      className={this.state.navbarIsActive ? "navbar-menu is-active" : "navbar-menu"}>
-                    <div className="navbar-start">
-                        <div className="navbar-item">
-                            管理后台
-                        </div>
-                    </div>
                     <div className="navbar-end">
                         <div className="navbar-item has-dropdown is-hoverable">
                             <div className="navbar-link">

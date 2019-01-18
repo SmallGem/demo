@@ -22,13 +22,6 @@ class Menu extends Component {
                 <p className="menu-label">商品管理</p>
                 <ul className="menu-list">
                     <li>
-                        {this.renderMenuItem("catalogs", "分类")}
-                        <ul>
-                            <li>{this.renderMenuItem("addCatalog", "添加")}</li>
-                            <li>{this.renderMenuItem("modifyCatalog", "修改")}</li>
-                        </ul>
-                    </li>
-                    <li>
                         {this.renderMenuItem("items", "商品")}
                         <ul>
                             <li>{this.renderMenuItem("addItem", "添加")}</li>
