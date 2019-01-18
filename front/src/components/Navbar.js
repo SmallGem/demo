@@ -34,10 +34,6 @@ class Navbar extends Component {
         });
     };
 
-    // logout = () => {
-    //     document.cookie = "username=null;path=/;expires=" + new Date().toUTCString();
-    // };
-
     render() {
         return (
             <nav className="navbar is-dark" role="navigation" aria-label="main navigation">
@@ -68,7 +64,7 @@ class Navbar extends Component {
                             </div>
                             <div className="navbar-dropdown is-right">
                                 <div className="navbar-item">
-                                    <button className="button is-danger">退出</button>
+                                    <a href="http://application.test:5000/logout" className="button is-danger">退出</a>
                                 </div>
                             </div>
                         </div>

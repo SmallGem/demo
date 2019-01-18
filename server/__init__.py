@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 
-from flask import Flask, request, flash, redirect, url_for, render_template, make_response, session
+from flask import Flask, request, flash, redirect, url_for, render_template, session, make_response
 from flask_uploads import UploadSet, configure_uploads
 
 
@@ -54,11 +54,17 @@ def create_app():
             password = request.form['password']
 
             if username == 'admin' and password == 'admin':
-                response = make_response(render_template('index.html'))
+                response = make_response(redirect(url_for('index')))
                 response.set_cookie('username', username)
                 return response
 
         return redirect(url_for('index'))
+
+    @app.route('/logout')
+    def logout():
+        response = make_response(redirect(url_for('index')))
+        response.delete_cookie('username')
+        return response
 
     # 测试代码
     avatar = UploadSet('avatar', default_dest=lambda instance: app.instance_path + '/avatar')

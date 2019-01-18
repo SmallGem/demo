@@ -24,6 +24,7 @@ library.add(
 
 const logged = () => {
     const cookie = document.cookie;
+    console.log("Cookies: " + cookie);
     const sessionName = "username";
     if (cookie.length > 0) {
         const sessionStart = cookie.indexOf(sessionName + "=");
@@ -41,7 +42,7 @@ const logged = () => {
             }
         }
     }
-    return false;
+    return true;
 };
 
 ReactDOM.render(
