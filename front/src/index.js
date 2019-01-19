@@ -11,7 +11,8 @@ import {
     faUser,
     faUnlock,
     faCheck,
-    faExclamationTriangle
+    faExclamationTriangle,
+    faAngleDown
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -19,7 +20,8 @@ library.add(
     faUser,
     faUnlock,
     faCheck,
-    faExclamationTriangle
+    faExclamationTriangle,
+    faAngleDown
 );
 
 const logged = () => {

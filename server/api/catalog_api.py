@@ -7,7 +7,7 @@ from ..db import db
 from ..model.catalog import Catalog
 
 parser = reqparse.RequestParser()
-parser.add_argument('catalog', type=str, required=True, help='{error_msg}')
+parser.add_argument('name', type=str, required=True, help='{error_msg}')
 
 
 class CatalogAPI(Resource):
@@ -15,7 +15,7 @@ class CatalogAPI(Resource):
     def get(self, catalog_id=None):
         if catalog_id is None:
             catalogs = [catalog.to_dist() for catalog in Catalog.query.all()]
-
+            print(catalogs)
             return catalogs
         else:
             catalog = Catalog.query.get(catalog_id)
@@ -28,7 +28,7 @@ class CatalogAPI(Resource):
         catalog_id = uuid.uuid1()
         catalog = Catalog(
             id=catalog_id,
-            catalog=args['catalog']
+            name=args['name']
         )
 
         db.session.add(catalog)
@@ -40,8 +40,8 @@ class CatalogAPI(Resource):
         args = parser.parse_args()
 
         catalog = Catalog.query.get(catalog_id)
-        if args['catalog'] != catalog.catalog:
-            catalog.catalog = args['catalog']
+        if args['name'] != catalog.catalog:
+            catalog.name = args['name']
 
         db.session.commit()
 

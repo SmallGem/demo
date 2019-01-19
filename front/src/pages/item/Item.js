@@ -1,349 +1,136 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
+import './item.css';
+import Request from '../../utils/Request';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 class Item extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            catalogs: [],
+            catalogs: [{
+                id: 0,
+                name: "全部"
+            }],
+            catalogSwitchIsActive: false,
+            activeCatalog: "全部",
             items: [],
         }
     }
 
-    getCatalogs = () => {
-        let request = new XMLHttpRequest();
-        request.onreadystatechange = () => {
-            if (request.readyState === XMLHttpRequest.DONE) {
-                if (request.status === 200) {
-                    return JSON.parse(request.response);
-                }
-            }
-        };
-        request.open('GET', 'http://application.test:5000/catalog', false);
-        request.setRequestHeader('Content-Type', 'application/json');
-        request.send();
+    getCatalogs = (catalogId = null) => {
+        const urlShard = catalogId ? "/catalog/" + catalogId : "/catalog";
+        return new Request("GET", urlShard);
     };
+
+    getItems = (catalogId) => {
+        const urlShard = catalogId === 0 ? "/item" : "/item/" + catalogId;
+        return new Request("GET", urlShard);
+    };
+
+    switchCatalogs = () => {
+        this.setState({
+            catalogSwitchIsActive: !this.state.catalogSwitchIsActive,
+        });
+    };
+
+    selectCatalog = (catalogId, catalogName) => {
+        let items;
+        items = this.getItems(catalogId);
+        console.log(items);
+
+        this.setState({
+            catalogSwitchIsActive: false,
+            activeCatalog: catalogName,
+            items: items,
+        });
+    };
+
+    componentWillMount() {
+        let catalogs, items;
+
+        catalogs = this.getCatalogs();
+        items = this.getItems(0);;
+
+        this.setState({
+            catalogs: this.state.catalogs.concat(catalogs),
+            items: items,
+        });
+    }
+
+    renderCatalogs() {
+        let catalogs = this.state.catalogs.map(catalog => {
+            let id = catalog.id;
+            let name = catalog.name;
+            return (
+                <a className={this.state.activeCatalog === name ? "dropdown-item is-active" : "dropdown-item"}
+                   onClick={() => this.selectCatalog(id, name)}>
+                    {name}
+                </a>
+            )
+        });
+
+        return (
+            <div className={this.state.catalogSwitchIsActive ? "dropdown is-active" : "dropdown"}>
+                <div className="dropdown-trigger" onClick={() => this.switchCatalogs()}>
+                    <button className="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                        <span>{this.state.activeCatalog}</span>
+                        <span className="icon is-small">
+                            <FontAwesomeIcon icon="angle-down"/>
+                        </span>
+                    </button>
+                </div>
+                <div className="dropdown-menu" id="dropdown-menu" role="menu">
+                    <div className="dropdown-content">
+                        {catalogs}
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    renderItems() {
+        return this.state.items.map(item => {
+            let id = item.id;
+            let name = item.name;
+            let image = item.image;
+            let description = item.description;
+            let price = item.price;
+            let sold = item.sold;
+
+            return (
+                <tr>
+                    <th>{name}</th>
+                    <td><img src={image} alt={name}/></td>
+                    <td>{description}</td>
+                    <td>￥{price}</td>
+                    <td>{sold}</td>
+                    <td>
+                        <button className="button is-info">修改</button>
+                        <button className="button is-danger">删除</button>
+                    </td>
+                </tr>
+            )
+        });
+    }
 
     render() {
         return (
             <div>
                 <h2 className="title is-2">商品列表</h2>
-                <table className="table">
+                {this.renderCatalogs()}
+                <table className="table is-hoverable is-bordered">
                     <thead>
                     <tr>
-                        <th><abbr title="Position">Pos</abbr></th>
-                        <th>Team</th>
-                        <th><abbr title="Played">Pld</abbr></th>
-                        <th><abbr title="Won">W</abbr></th>
-                        <th><abbr title="Drawn">D</abbr></th>
-                        <th><abbr title="Lost">L</abbr></th>
-                        <th><abbr title="Goals for">GF</abbr></th>
-                        <th><abbr title="Goals against">GA</abbr></th>
-                        <th><abbr title="Goal difference">GD</abbr></th>
-                        <th><abbr title="Points">Pts</abbr></th>
-                        <th>Qualification or relegation</th>
+                        <th className="item-name">名称</th>
+                        <th className="item-image">图片</th>
+                        <th className="item-description">介绍</th>
+                        <th className="item-price">价格</th>
+                        <th className="item-sold">已售</th>
+                        <th className="item-option">操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th>1</th>
-                        <td><a href="https://en.wikipedia.org/wiki/Leicester_City_F.C." title="Leicester City F.C.">Leicester
-                            City</a> <strong>(C)</strong>
-                        </td>
-                        <td>38</td>
-                        <td>23</td>
-                        <td>12</td>
-                        <td>3</td>
-                        <td>68</td>
-                        <td>36</td>
-                        <td>+32</td>
-                        <td>81</td>
-                        <td>Qualification for the <a
-                            href="https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Champions_League#Group_stage"
-                            title="2016–17 UEFA Champions League">Champions League group stage</a></td>
-                    </tr>
-                    <tr>
-                        <th>2</th>
-                        <td><a href="https://en.wikipedia.org/wiki/Arsenal_F.C." title="Arsenal F.C.">Arsenal</a></td>
-                        <td>38</td>
-                        <td>20</td>
-                        <td>11</td>
-                        <td>7</td>
-                        <td>65</td>
-                        <td>36</td>
-                        <td>+29</td>
-                        <td>71</td>
-                        <td>Qualification for the <a
-                            href="https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Champions_League#Group_stage"
-                            title="2016–17 UEFA Champions League">Champions League group stage</a></td>
-                    </tr>
-                    <tr>
-                        <th>3</th>
-                        <td><a href="https://en.wikipedia.org/wiki/Tottenham_Hotspur_F.C."
-                               title="Tottenham Hotspur F.C.">Tottenham Hotspur</a></td>
-                        <td>38</td>
-                        <td>19</td>
-                        <td>13</td>
-                        <td>6</td>
-                        <td>69</td>
-                        <td>35</td>
-                        <td>+34</td>
-                        <td>70</td>
-                        <td>Qualification for the <a
-                            href="https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Champions_League#Group_stage"
-                            title="2016–17 UEFA Champions League">Champions League group stage</a></td>
-                    </tr>
-                    <tr className="is-selected">
-                        <th>4</th>
-                        <td><a href="https://en.wikipedia.org/wiki/Manchester_City_F.C." title="Manchester City F.C.">Manchester
-                            City</a></td>
-                        <td>38</td>
-                        <td>19</td>
-                        <td>9</td>
-                        <td>10</td>
-                        <td>71</td>
-                        <td>41</td>
-                        <td>+30</td>
-                        <td>66</td>
-                        <td>Qualification for the <a
-                            href="https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Champions_League#Play-off_round"
-                            title="2016–17 UEFA Champions League">Champions League play-off round</a></td>
-                    </tr>
-                    <tr>
-                        <th>5</th>
-                        <td><a href="https://en.wikipedia.org/wiki/Manchester_United_F.C."
-                               title="Manchester United F.C.">Manchester United</a></td>
-                        <td>38</td>
-                        <td>19</td>
-                        <td>9</td>
-                        <td>10</td>
-                        <td>49</td>
-                        <td>35</td>
-                        <td>+14</td>
-                        <td>66</td>
-                        <td>Qualification for the <a
-                            href="https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Europa_League#Group_stage"
-                            title="2016–17 UEFA Europa League">Europa League group stage</a></td>
-                    </tr>
-                    <tr>
-                        <th>6</th>
-                        <td><a href="https://en.wikipedia.org/wiki/Southampton_F.C."
-                               title="Southampton F.C.">Southampton</a></td>
-                        <td>38</td>
-                        <td>18</td>
-                        <td>9</td>
-                        <td>11</td>
-                        <td>59</td>
-                        <td>41</td>
-                        <td>+18</td>
-                        <td>63</td>
-                        <td>Qualification for the <a
-                            href="https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Europa_League#Group_stage"
-                            title="2016–17 UEFA Europa League">Europa League group stage</a></td>
-                    </tr>
-                    <tr>
-                        <th>7</th>
-                        <td><a href="https://en.wikipedia.org/wiki/West_Ham_United_F.C." title="West Ham United F.C.">West
-                            Ham United</a></td>
-                        <td>38</td>
-                        <td>16</td>
-                        <td>14</td>
-                        <td>8</td>
-                        <td>65</td>
-                        <td>51</td>
-                        <td>+14</td>
-                        <td>62</td>
-                        <td>Qualification for the <a
-                            href="https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Europa_League#Third_qualifying_round"
-                            title="2016–17 UEFA Europa League">Europa League third qualifying round</a></td>
-                    </tr>
-                    <tr>
-                        <th>8</th>
-                        <td><a href="https://en.wikipedia.org/wiki/Liverpool_F.C." title="Liverpool F.C.">Liverpool</a>
-                        </td>
-                        <td>38</td>
-                        <td>16</td>
-                        <td>12</td>
-                        <td>10</td>
-                        <td>63</td>
-                        <td>50</td>
-                        <td>+13</td>
-                        <td>60</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>9</th>
-                        <td><a href="https://en.wikipedia.org/wiki/Stoke_City_F.C." title="Stoke City F.C.">Stoke
-                            City</a></td>
-                        <td>38</td>
-                        <td>14</td>
-                        <td>9</td>
-                        <td>15</td>
-                        <td>41</td>
-                        <td>55</td>
-                        <td>−14</td>
-                        <td>51</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>10</th>
-                        <td><a href="https://en.wikipedia.org/wiki/Chelsea_F.C." title="Chelsea F.C.">Chelsea</a></td>
-                        <td>38</td>
-                        <td>12</td>
-                        <td>14</td>
-                        <td>12</td>
-                        <td>59</td>
-                        <td>53</td>
-                        <td>+6</td>
-                        <td>50</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>11</th>
-                        <td><a href="https://en.wikipedia.org/wiki/Everton_F.C." title="Everton F.C.">Everton</a></td>
-                        <td>38</td>
-                        <td>11</td>
-                        <td>14</td>
-                        <td>13</td>
-                        <td>59</td>
-                        <td>55</td>
-                        <td>+4</td>
-                        <td>47</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>12</th>
-                        <td><a href="https://en.wikipedia.org/wiki/Swansea_City_A.F.C." title="Swansea City A.F.C.">Swansea
-                            City</a></td>
-                        <td>38</td>
-                        <td>12</td>
-                        <td>11</td>
-                        <td>15</td>
-                        <td>42</td>
-                        <td>52</td>
-                        <td>−10</td>
-                        <td>47</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>13</th>
-                        <td><a href="https://en.wikipedia.org/wiki/Watford_F.C." title="Watford F.C.">Watford</a></td>
-                        <td>38</td>
-                        <td>12</td>
-                        <td>9</td>
-                        <td>17</td>
-                        <td>40</td>
-                        <td>50</td>
-                        <td>−10</td>
-                        <td>45</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>14</th>
-                        <td><a href="https://en.wikipedia.org/wiki/West_Bromwich_Albion_F.C."
-                               title="West Bromwich Albion F.C.">West Bromwich Albion</a></td>
-                        <td>38</td>
-                        <td>10</td>
-                        <td>13</td>
-                        <td>15</td>
-                        <td>34</td>
-                        <td>48</td>
-                        <td>−14</td>
-                        <td>43</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>15</th>
-                        <td><a href="https://en.wikipedia.org/wiki/Crystal_Palace_F.C." title="Crystal Palace F.C.">Crystal
-                            Palace</a></td>
-                        <td>38</td>
-                        <td>11</td>
-                        <td>9</td>
-                        <td>18</td>
-                        <td>39</td>
-                        <td>51</td>
-                        <td>−12</td>
-                        <td>42</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>16</th>
-                        <td><a href="https://en.wikipedia.org/wiki/A.F.C._Bournemouth" title="A.F.C. Bournemouth">AFC
-                            Bournemouth</a></td>
-                        <td>38</td>
-                        <td>11</td>
-                        <td>9</td>
-                        <td>18</td>
-                        <td>45</td>
-                        <td>67</td>
-                        <td>−22</td>
-                        <td>42</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>17</th>
-                        <td><a href="https://en.wikipedia.org/wiki/Sunderland_A.F.C."
-                               title="Sunderland A.F.C.">Sunderland</a></td>
-                        <td>38</td>
-                        <td>9</td>
-                        <td>12</td>
-                        <td>17</td>
-                        <td>48</td>
-                        <td>62</td>
-                        <td>−14</td>
-                        <td>39</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>18</th>
-                        <td><a href="https://en.wikipedia.org/wiki/Newcastle_United_F.C." title="Newcastle United F.C.">Newcastle
-                            United</a> <strong>(R)</strong>
-                        </td>
-                        <td>38</td>
-                        <td>9</td>
-                        <td>10</td>
-                        <td>19</td>
-                        <td>44</td>
-                        <td>65</td>
-                        <td>−21</td>
-                        <td>37</td>
-                        <td>Relegation to the <a
-                            href="https://en.wikipedia.org/wiki/2016%E2%80%9317_Football_League_Championship"
-                            title="2016–17 Football League Championship">Football League Championship</a></td>
-                    </tr>
-                    <tr>
-                        <th>19</th>
-                        <td><a href="https://en.wikipedia.org/wiki/Norwich_City_F.C." title="Norwich City F.C.">Norwich
-                            City</a> <strong>(R)</strong>
-                        </td>
-                        <td>38</td>
-                        <td>9</td>
-                        <td>7</td>
-                        <td>22</td>
-                        <td>39</td>
-                        <td>67</td>
-                        <td>−28</td>
-                        <td>34</td>
-                        <td>Relegation to the <a
-                            href="https://en.wikipedia.org/wiki/2016%E2%80%9317_Football_League_Championship"
-                            title="2016–17 Football League Championship">Football League Championship</a></td>
-                    </tr>
-                    <tr>
-                        <th>20</th>
-                        <td><a href="https://en.wikipedia.org/wiki/Aston_Villa_F.C." title="Aston Villa F.C.">Aston
-                            Villa</a> <strong>(R)</strong>
-                        </td>
-                        <td>38</td>
-                        <td>3</td>
-                        <td>8</td>
-                        <td>27</td>
-                        <td>27</td>
-                        <td>76</td>
-                        <td>−49</td>
-                        <td>17</td>
-                        <td>Relegation to the <a
-                            href="https://en.wikipedia.org/wiki/2016%E2%80%9317_Football_League_Championship"
-                            title="2016–17 Football League Championship">Football League Championship</a></td>
-                    </tr>
+                    {this.renderItems()}
                     </tbody>
                 </table>
             </div>

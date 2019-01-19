@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+.table {
+    min-width: 754px;
+}
+
+.table .item-name {
+    width: 128px;
+}
+
+.table .item-image {
+    width: 100px;
+}
+
+.table .item-price {
+    width: 96px;
+}
+
+.table .item-option {
+    width: 96px;
+}
