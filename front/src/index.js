@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import 'bulma/css/bulma.min.css';
 import App from './App';
 import Login from './Login';
+import Cookie from './utils/Cookie';
 import * as serviceWorker from './serviceWorker';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -25,26 +26,8 @@ library.add(
 );
 
 const logged = () => {
-    const cookie = document.cookie;
-    console.log("Cookies: " + cookie);
-    const sessionName = "username";
-    if (cookie.length > 0) {
-        const sessionStart = cookie.indexOf(sessionName + "=");
-        if (sessionStart !== -1) {
-            const sessionEnd = cookie.indexOf(";", sessionStart + sessionName.length + 1);
-            if (sessionEnd === -1) {
-                const session = cookie.substring(sessionStart + sessionName.length + 1);
-                if (session !== "" && session !== null) {
-                    return true;
-                }
-            }
-            const session = cookie.substring(sessionStart + sessionName.length + 1, sessionEnd);
-            if (session !== "" && session !== null) {
-                return true;
-            }
-        }
-    }
-    return true;
+    return !!new Cookie().get("username");
+
 };
 
 ReactDOM.render(
