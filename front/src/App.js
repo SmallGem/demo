@@ -57,9 +57,7 @@ class App extends Component {
                     </div>
                     <div className="column is-four-fifths">
                         <section className="section">
-                            <div className="container is-widescreen">
-                                {this.renderPage()}
-                            </div>
+                            {this.renderPage()}
                         </section>
                     </div>
                 </div>

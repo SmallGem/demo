@@ -4,8 +4,10 @@ import LineChart from '../components/chart/LineChart'
 class Home extends Component {
     render() {
         return (
-            <div className="tile is-ancestor">
-                <LineChart/>
+            <div className="container is-widescreen">
+                <div className="tile is-ancestor">
+                    <LineChart/>
+                </div>
             </div>
         )
     }

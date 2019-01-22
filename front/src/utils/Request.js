@@ -5,6 +5,7 @@ class Request {
         this.request.onreadystatechange = () => {
             if (this.request.readyState === XMLHttpRequest.DONE) {
                 if (this.request.status === 200) {
+                    console.log(this.request.response);
                     this.response = JSON.parse(this.request.response);
                 }
             }

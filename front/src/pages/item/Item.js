@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './item.css';
 import Request from '../../utils/Request';
+import ItemTable from '../../components/table/ItemTable';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 class Item extends Component {
@@ -49,7 +50,7 @@ class Item extends Component {
         let catalogs, items;
 
         catalogs = this.getCatalogs();
-        items = this.getItems(0);;
+        items = this.getItems(0);
 
         this.setState({
             catalogs: this.state.catalogs.concat(catalogs),
@@ -88,51 +89,24 @@ class Item extends Component {
         )
     }
 
-    renderItems() {
-        return this.state.items.map(item => {
-            let id = item.id;
-            let name = item.name;
-            let image = item.image;
-            let description = item.description;
-            let price = item.price;
-            let sold = item.sold;
-
-            return (
-                <tr>
-                    <th>{name}</th>
-                    <td><img src={image} alt={name}/></td>
-                    <td>{description}</td>
-                    <td>￥{price}</td>
-                    <td>{sold}</td>
-                    <td>
-                        <button className="button is-info">修改</button>
-                        <button className="button is-danger">删除</button>
-                    </td>
-                </tr>
-            )
-        });
-    }
-
     render() {
         return (
-            <div>
+            <div className="container is-widescreen">
                 <h2 className="title is-2">商品列表</h2>
-                {this.renderCatalogs()}
-                <table className="table is-hoverable is-bordered">
-                    <thead>
-                    <tr>
-                        <th className="item-name">名称</th>
-                        <th className="item-image">图片</th>
-                        <th className="item-description">介绍</th>
-                        <th className="item-price">价格</th>
-                        <th className="item-sold">已售</th>
-                        <th className="item-option">操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {this.renderItems()}
-                    </tbody>
-                </table>
+                <nav className="level">
+                    <div className="level-left">
+                        <div className="level-item">
+                            {this.renderCatalogs()}
+                        </div>
+                        <div className="level-item">
+                            <button className="button is-success">添加分类</button>
+                        </div>
+                        <div className="level-item">
+                            <button className="button is-success">添加商品</button>
+                        </div>
+                    </div>
+                </nav>
+                <ItemTable items={this.state.items}/>
             </div>
         )
     }
