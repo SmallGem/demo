@@ -7,6 +7,8 @@ class Request {
                 if (this.request.status === 200) {
                     console.log(this.request.response);
                     this.response = JSON.parse(this.request.response);
+                } else {
+                    this.response = this.request.status;
                 }
             }
         };

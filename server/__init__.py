@@ -56,6 +56,7 @@ def create_app():
             if username == 'admin' and password == 'admin':
                 response = make_response(redirect(url_for('index')))
                 response.set_cookie('username', username)
+                response.set_cookie('status', 'logged')
                 return response
 
         return redirect(url_for('index'))
