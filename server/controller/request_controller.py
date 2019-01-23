@@ -10,7 +10,7 @@ def get(url_shard):
     result = requests.get(url)
     result.raise_for_status()
 
-    return result
+    return result.json()
 
 
 def post(url_shard, data):
@@ -19,4 +19,4 @@ def post(url_shard, data):
     result = requests.post(url, data)
     result.raise_for_status()
 
-    return result
+    return result.json()

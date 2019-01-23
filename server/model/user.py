@@ -15,6 +15,7 @@ class User(db.Model, BaseMixin):
 
     def to_dist(self):
         return {
+            'id': str(self.id),
             'nickname': self.nickname,
             'avatar': self.avatar,
             'gender': self.gender,

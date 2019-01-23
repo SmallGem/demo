@@ -43,8 +43,29 @@ class UserAPI(Resource):
 
         result = get(url_shard)
 
-        if result['errcode'] != 0:
+        if 'errcode' in result:
             return result
+
+        user = User.query.filter_by(openid=result['openid']).first()
+        if user:
+            if args['nickname'] != user.nickname:
+                user.nickname = args['nickname']
+            if args['avatar'] != user.avatar:
+                user.avatar = args['avatar']
+            if args['gender'] != user.gender:
+                user.gender = args['gender']
+            if args['country'] != user.country:
+                user.country = args['country']
+            if args['province'] != user.province:
+                user.province = args['province']
+            if args['city'] != user.city:
+                user.city = args['city']
+            if result['session_key'] != user.session_key:
+                user.session_key = result['session_key']
+
+            db.session.commit()
+
+            return user.to_dist()
 
         user_id = uuid.uuid1()
         user = User(
@@ -61,8 +82,6 @@ class UserAPI(Resource):
 
         db.session.add(user)
         db.session.commit()
-
-        session['token'] = user.id
 
         return user.to_dist()
 
