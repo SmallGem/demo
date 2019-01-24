@@ -1,12 +1,32 @@
 {
-  "pages":[
-    "pages/index/index",
-    "pages/list/list"
-  ],
-  "window":{
-    "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
-  }
+    "pages": [
+        "pages/index/index",
+        "pages/user/user",
+        "pages/list/list"
+    ],
+    "window": {
+        "navigationBarBackgroundColor": "#ef4566",
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText": "我的小店",
+        "backgroundColor": "#f69a9a",
+        "backgroundTextStyle": "dark",
+        "backgroundColorTop": "#f69a9a",
+        "backgroundColorBottom": "#f69a9a"
+    },
+    "tabBar": {
+        "color": "#c8c8a9",
+        "selectedColor": "#83ae98",
+        "backgroundColor": "#f69a9a",
+        "borderStyle": "black",
+        "position": "bottom",
+        "list": [
+            {
+                "pagePath": "pages/index/index",
+                "text": "店铺"
+            },{
+                "pagePath": "pages/user/user",
+                "text": "我的"
+            }
+        ]
+    }
 }

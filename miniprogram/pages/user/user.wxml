@@ -1,4 +1,4 @@
-<!--pages/index/index.wxml-->
+<!--pages/user/user.wxml-->
 
 <view class="container">
     <view class="userinfo">

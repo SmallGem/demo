@@ -1,4 +1,4 @@
-// pages/index/index.js
+// pages/user/user.js
 
 const app = getApp()
 
@@ -14,7 +14,7 @@ Page({
         canIUse: wx.canIUse('button.open-type.getUserInfo')
     },
 
-    getUserInfo: function(e) {
+    getUserInfo: function (e) {
         console.log(e)
         app.globalData.userInfo = e.detail.userInfo
         this.setData({
@@ -26,7 +26,7 @@ Page({
     /**
      * Lifecycle function--Called when page load
      */
-    onLoad: function(options) {
+    onLoad: function (options) {
         if (app.globalData.userInfo) {
             this.setData({
                 userInfo: app.globalData.userInfo,
@@ -58,49 +58,49 @@ Page({
     /**
      * Lifecycle function--Called when page is initially rendered
      */
-    onReady: function() {
+    onReady: function () {
 
     },
 
     /**
      * Lifecycle function--Called when page show
      */
-    onShow: function() {
+    onShow: function () {
 
     },
 
     /**
      * Lifecycle function--Called when page hide
      */
-    onHide: function() {
+    onHide: function () {
 
     },
 
     /**
      * Lifecycle function--Called when page unload
      */
-    onUnload: function() {
+    onUnload: function () {
 
     },
 
     /**
      * Page event handler function--Called when user drop down
      */
-    onPullDownRefresh: function() {
+    onPullDownRefresh: function () {
 
     },
 
     /**
      * Called when page reach bottom
      */
-    onReachBottom: function() {
+    onReachBottom: function () {
 
     },
 
     /**
      * Called when user click on the top right corner to share
      */
-    onShareAppMessage: function() {
+    onShareAppMessage: function () {
 
     }
 })

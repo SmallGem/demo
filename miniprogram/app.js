@@ -2,10 +2,15 @@
 
 App({
     onLaunch: function() {
+        // 获取用户信息
+        this.wechatUserInfo()
+
         // 登录
         this.wechat()
+    },
 
-        // 获取用户信息
+    // 获取用户信息
+    wechatUserInfo() {
         wx.getSetting({
             success: res => {
                 if (res.authSetting['scope.userInfo']) {
@@ -27,6 +32,7 @@ App({
         })
     },
 
+    // 登录
     wechat() {
         wx.checkSession({
             success: res => {
