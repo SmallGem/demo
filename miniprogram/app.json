@@ -1,8 +1,7 @@
 {
     "pages": [
         "pages/index/index",
-        "pages/user/user",
-        "pages/list/list"
+        "pages/user/user"
     ],
     "window": {
         "navigationBarBackgroundColor": "#ef4566",
@@ -15,8 +14,8 @@
     },
     "tabBar": {
         "color": "#c8c8a9",
-        "selectedColor": "#83ae98",
-        "backgroundColor": "#f69a9a",
+        "selectedColor": "#ef4566",
+        "backgroundColor": "#fff",
         "borderStyle": "black",
         "position": "bottom",
         "list": [

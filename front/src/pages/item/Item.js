@@ -2,7 +2,61 @@ import React, {Component} from 'react';
 import './item.css';
 import Request from '../../utils/Request';
 import ItemTable from '../../components/table/ItemTable';
+import CatalogAlert from '../../components/alert/CatalogAlert';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+
+class CatalogDropdown extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isActive: false,
+        }
+    }
+
+    switchCatalogs = () => {
+        this.setState({
+            isActive: !this.state.isActive,
+        })
+    };
+
+    selectCatalog = (catalogId, catalogName) => {
+        this.setState({
+            isActive: false,
+        });
+        this.props.onClick(catalogId, catalogName);
+    };
+
+    renderCatalogList() {
+        return this.props.catalogs.map(catalog => {
+            return (
+                <a className={this.props.activeCatalog === catalog.name ? "dropdown-item is-active" : "dropdown-item"}
+                   onClick={() => this.selectCatalog(catalog.id, catalog.name)}>
+                    {catalog.name}
+                </a>
+            );
+        });
+    }
+
+    render() {
+        return (
+            <div className={this.state.isActive ? "dropdown is-active" : "dropdown"}>
+                <div className="dropdown-trigger" onClick={() => this.switchCatalogs()}>
+                    <button className="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                        <span>{this.props.activeCatalog}</span>
+                        <span className="icon is-small">
+                            <FontAwesomeIcon icon="angle-down"/>
+                        </span>
+                    </button>
+                </div>
+                <div className="dropdown-menu" id="dropdown-menu" role="menu">
+                    <div className="dropdown-content">
+                        {this.renderCatalogList()}
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
 
 class Item extends Component {
     constructor(props) {
@@ -13,19 +67,35 @@ class Item extends Component {
                 name: "全部"
             }],
             catalogSwitchIsActive: false,
-            activeCatalog: "全部",
+            activeCatalog: {
+                id: 0,
+                name: "全部"
+            },
             items: [],
+            activeCatalogAlert: false,
         }
     }
 
     getCatalogs = (catalogId = null) => {
         const urlShard = catalogId ? "/catalog/" + catalogId : "/catalog";
-        return new Request("GET", urlShard);
+        let catalogs = new Request("GET", urlShard);
+
+        this.setState({
+            catalogs: [{
+                id: 0,
+                name: "全部"
+            }].concat(catalogs),
+        });
     };
 
     getItems = (catalogId) => {
         const urlShard = catalogId === 0 ? "/item" : "/item/" + catalogId;
-        return new Request("GET", urlShard);
+        let items;
+        items = new Request("GET", urlShard);
+
+        this.setState({
+            items: items,
+        });
     };
 
     switchCatalogs = () => {
@@ -35,58 +105,56 @@ class Item extends Component {
     };
 
     selectCatalog = (catalogId, catalogName) => {
-        let items;
-        items = this.getItems(catalogId);
-        console.log(items);
+        console.log(catalogId);
+        let items = this.getItems(catalogId);
 
         this.setState({
             catalogSwitchIsActive: false,
-            activeCatalog: catalogName,
+            activeCatalog: {
+                id: catalogId,
+                name: catalogName
+            },
             items: items,
         });
     };
 
-    componentWillMount() {
-        let catalogs, items;
+    deleteCatalogAndItems = () => {
+        const catalogId = this.state.activeCatalog.id;
+        const urlShard = "/catalog/" + catalogId;
 
-        catalogs = this.getCatalogs();
-        items = this.getItems(0);
+        new Request("DELETE", urlShard);
 
+        this.getCatalogs();
+    };
+
+    openCatalogAlert = () => {
         this.setState({
-            catalogs: this.state.catalogs.concat(catalogs),
-            items: items,
+            activeCatalogAlert: true,
         });
+    };
+
+    closeCatalogAlert = () => {
+        this.setState({
+            activeCatalogAlert: false,
+        })
+    };
+
+    componentWillMount() {
+        this.getCatalogs();
+        this.getItems(0);
     }
 
-    renderCatalogs() {
-        let catalogs = this.state.catalogs.map(catalog => {
-            let id = catalog.id;
-            let name = catalog.name;
+    renderCatalogAlert() {
+        if (this.state.activeCatalogAlert) {
             return (
-                <a className={this.state.activeCatalog === name ? "dropdown-item is-active" : "dropdown-item"}
-                   onClick={() => this.selectCatalog(id, name)}>
-                    {name}
-                </a>
-            )
-        });
+                <CatalogAlert
+                    getCatalogs={() => this.getCatalogs()}
+                    onClick={() => this.closeCatalogAlert()}
+                />
+            );
+        }
 
-        return (
-            <div className={this.state.catalogSwitchIsActive ? "dropdown is-active" : "dropdown"}>
-                <div className="dropdown-trigger" onClick={() => this.switchCatalogs()}>
-                    <button className="button" aria-haspopup="true" aria-controls="dropdown-menu">
-                        <span>{this.state.activeCatalog}</span>
-                        <span className="icon is-small">
-                            <FontAwesomeIcon icon="angle-down"/>
-                        </span>
-                    </button>
-                </div>
-                <div className="dropdown-menu" id="dropdown-menu" role="menu">
-                    <div className="dropdown-content">
-                        {catalogs}
-                    </div>
-                </div>
-            </div>
-        )
+        return null;
     }
 
     render() {
@@ -96,17 +164,35 @@ class Item extends Component {
                 <nav className="level">
                     <div className="level-left">
                         <div className="level-item">
-                            {this.renderCatalogs()}
+                            <CatalogDropdown
+                                catalogs={this.state.catalogs}
+                                activeCatalog={this.state.activeCatalog.name}
+                                onClick={(catalogId, catalogName) => this.selectCatalog(catalogId, catalogName)}
+                            />
                         </div>
                         <div className="level-item">
-                            <button className="button is-success">添加分类</button>
+                            <button className="button is-primary" onClick={() => this.openCatalogAlert()}>添加分类</button>
                         </div>
                         <div className="level-item">
-                            <button className="button is-success">添加商品</button>
+                            <button
+                                className="button is-danger"
+                                onClick={() => this.deleteCatalogAndItems()}
+                            >
+                                删除分类及分类内物品
+                            </button>
+                        </div>
+                        <div className="level-item">
+                            <button
+                                className="button is-primary"
+                                onClick={() => this.props.selectMenuItem("addItem")}
+                            >
+                                添加商品
+                            </button>
                         </div>
                     </div>
                 </nav>
                 <ItemTable items={this.state.items}/>
+                {this.renderCatalogAlert()}
             </div>
         )
     }

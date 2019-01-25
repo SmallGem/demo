@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 
+/**
+ * @return {null} or {Component}
+ */
 function ItemList(props) {
     return props.items.map(item => {
         let id = item.id;
@@ -40,7 +43,7 @@ class ItemTable extends Component {
                 </tr>
                 </thead>
                 <tbody>
-                <ItemList items={this.props.items}/>
+                <ItemList items={this.props.items ? this.props.items : []}/>
                 </tbody>
             </table>
         )

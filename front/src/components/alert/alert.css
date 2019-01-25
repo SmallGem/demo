@@ -1,7 +1,9 @@
+@charset "UTF-8";
+
 .box.alert-box {
     position: fixed;
     top: 40vh;
-    width: 400px;
-    margin: 0 auto;
+    left: 40vw;
+    width: 200px;
     z-index: 777;
 }

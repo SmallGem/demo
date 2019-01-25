@@ -1,14 +1,10 @@
 <!--pages/index/index.wxml-->
 
-<view class="container">
-    <view class="userinfo">
-        <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-        <block wx:else>
-            <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-            <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-        </block>
-    </view>
-    <view class="usermotto">
-        <text class="user-motto">{{motto}}</text>
-    </view>
+<view class="container index">
+    <scroll-view class='catalog-wrapper scroll' scroll-y>
+        <view id='{{catalog.id}}' class='{{catalog.id === activeCatalog ? "catalog active" : "catalog"}}' wx:for='{{catalogs}}' wx:for-item='catalog' wx:key='catalog.id' bindtap='selectCatalog'>
+            {{catalog.name}}
+        </view>
+    </scroll-view>
+    <scroll-view class='item-wrapper scroll'></scroll-view>
 </view>

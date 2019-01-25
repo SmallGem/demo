@@ -15,7 +15,7 @@ class App extends Component {
     }
 
     selectMenuItem = (pageId) => {
-
+        console.log(pageId);
         this.setState({
             activeMenuItem: pageId,
         })
@@ -28,7 +28,7 @@ class App extends Component {
                 page = <Home/>;
                 break;
             case "items":
-                page = <Item/>;
+                page = <Item selectMenuItem={(pageId) => this.selectMenuItem(pageId)}/>;
                 break;
             case "addItem":
                 page = <AddItem/>;

@@ -5,6 +5,7 @@ from flask_restful import Resource, reqparse
 
 from ..db import db
 from ..model.catalog import Catalog
+from ..model.item import Item
 
 parser = reqparse.RequestParser()
 parser.add_argument('name', type=str, required=True, help='{error_msg}')
@@ -49,8 +50,14 @@ class CatalogAPI(Resource):
 
     def delete(self, catalog_id):
         catalog = Catalog.query.get(catalog_id)
+        items = Item.query.filter_by(catalog_id=catalog_id).all()
 
         db.session.delete(catalog)
+        for item in items:
+            db.session.delete(item)
         db.session.commit()
 
-        return 'ok'
+        return {
+            'errcode': 0,
+            'errmsg': 'ok'
+        }

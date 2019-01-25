@@ -1,21 +1,42 @@
 /** pages/index/index.wxss **/
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+
+.index {
+    position: relative;
+    display: flex;
+    flex-direction: row;
 }
 
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
+.index .scroll {
+    position: relative;
+    height: 100%;
 }
 
-.userinfo-nickname {
-  color: #aaa;
+.index .catalog-wrapper {
+    position: relative;
+    flex: 3;
+    border-right: 1px solid #d8d8d8;
+    box-sizing: border-box;
 }
 
-.usermotto {
-  margin-top: 200px;
+.index .catalog-wrapper .catalog {
+    position: relative;
+    width: 100%;
+    height: 64rpx;
+    padding: 0 32rpx;
+    font-size: 1.2em;
+    line-height: 64rpx;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    border-bottom: 1px solid #d8d8d8;
+    overflow: hidden;
+}
+
+.index .catalog-wrapper .catalog.active {
+    position: relative;
+    background: #f69a9a;
+}
+
+.index .item-wrapper {
+    position: relative;
+    flex: 7;
 }

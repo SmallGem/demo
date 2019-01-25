@@ -1,6 +1,7 @@
 // pages/index/index.js
 
 const app = getApp()
+const api = require('../../utils/request.js')
 
 Page({
 
@@ -8,65 +9,66 @@ Page({
      * Page initial data
      */
     data: {
-        motto: 'Hello World',
-        userInfo: {},
-        hasUserInfo: false,
-        canIUse: wx.canIUse('button.open-type.getUserInfo')
+        catalogs: [],
+        activeCatalog: null,
     },
 
-    getUserInfo: function(e) {
-        console.log(e)
-        app.globalData.userInfo = e.detail.userInfo
-        this.setData({
-            userInfo: e.detail.userInfo,
-            hasUserInfo: true
+    getCatalogs() {
+        wx.request({
+            method: 'GET',
+            url: app.globalData.url + '/catalog',
+            success: res => {
+                this.setData({
+                    catalogs: res.data,
+                    activeCatalog: res.data[0].id
+                })
+                this.getItems(res.data[0].id)
+            },
+            fail: err => {
+                console.log(err.errMsg)
+            }
         })
+    },
+
+    getItems(catalogId) {
+        wx.request({
+            method: 'GET',
+            url: app.globalData.url + '/item/' + catalogId,
+            success: res => {
+                return res.data
+            },
+            fail: err => {
+                console.log(err.errMsg)
+            }
+        })
+    },
+
+    selectCatalog(event) {
+        this.setData({
+            activeCatalog: event.currentTarget.id
+        })
+        this.getItems(event.currentTarget.id)
     },
 
     /**
      * Lifecycle function--Called when page load
      */
     onLoad: function(options) {
-        if (app.globalData.userInfo) {
-            this.setData({
-                userInfo: app.globalData.userInfo,
-                hasUserInfo: true
-            })
-        } else if (this.data.canIUse) {
-            // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-            // 所以此处加入 callback 以防止这种情况
-            app.userInfoReadyCallback = res => {
-                this.setData({
-                    userInfo: res.userInfo,
-                    hasUserInfo: true
-                })
-            }
-        } else {
-            // 在没有 open-type=getUserInfo 版本的兼容处理
-            wx.getUserInfo({
-                success: res => {
-                    app.globalData.userInfo = res.userInfo
-                    this.setData({
-                        userInfo: res.userInfo,
-                        hasUserInfo: true
-                    })
-                }
-            })
-        }
+        this.getCatalogs()
     },
 
     /**
      * Lifecycle function--Called when page is initially rendered
      */
     onReady: function() {
-
+        
     },
 
     /**
      * Lifecycle function--Called when page show
      */
-    onShow: function() {
-
+    onShow: function () {
+        
     },
 
     /**
