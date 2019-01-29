@@ -1,4 +1,5 @@
 /* pages/user/user.wxss */
+@charset 'UTF-8';
 
 .userinfo {
     display: flex;

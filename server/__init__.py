@@ -8,7 +8,7 @@ from flask_uploads import UploadSet, configure_uploads
 def create_app():
     # 创建并设置应用
     app = Flask(__name__, instance_relative_config=True)
-    # 测试环境配置文件
+    # 开发环境配置文件
     app.config.from_object('server.config')
 
     # 生产环境配置文件
@@ -36,12 +36,14 @@ def create_app():
     from .api.cart_api import CartAPI
     from .api.order_api import OrderAPI
     from .api.address_api import AddressAPI
+    from .api.search_api import SearchAPI
     api.add_resource(UserAPI, '/user', '/user/<string:user_id>')
     api.add_resource(CatalogAPI, '/catalog', '/catalog/<string:catalog_id>')
     api.add_resource(ItemAPI, '/item', '/item/<string:item_id>')
     api.add_resource(CartAPI, '/cart', '/cart/<string:user_id>')
     api.add_resource(OrderAPI, '/order', '/order/<string:user_id>')
     api.add_resource(AddressAPI, '/address', '/address/<string:user_id>')
+    api.add_resource(SearchAPI, '/search', '/search/<string:item_name>')
 
     @app.route('/')
     def index():
@@ -56,7 +58,6 @@ def create_app():
             if username == 'admin' and password == 'admin':
                 response = make_response(redirect(url_for('index')))
                 response.set_cookie('username', username)
-                response.set_cookie('status', 'logged')
                 return response
 
         return redirect(url_for('index'))

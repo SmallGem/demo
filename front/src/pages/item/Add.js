@@ -3,7 +3,9 @@ import React, { Component } from 'react'
 class Add extends Component {
     render() {
         return (
-            <h1>添加商品</h1>
+            <div className="container is-widescreen">
+                <h2 className="title is-2">添加商品</h2>
+            </div>
         )
     }
 }

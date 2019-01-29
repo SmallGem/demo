@@ -1,7 +1,5 @@
 // pages/index/index.js
-
 const app = getApp()
-const api = require('../../utils/request.js')
 
 Page({
 
@@ -9,8 +7,35 @@ Page({
      * Page initial data
      */
     data: {
+        inputShowed: false,
+        inputVal: "",
         catalogs: [],
-        activeCatalog: null,
+        activeCatalog: null
+    },
+
+    showInput() {
+        this.setData({
+            inputShowed: true
+        })
+    },
+
+    hideInput() {
+        this.setData({
+            inputVal: "",
+            inputShowed: false
+        })
+    },
+
+    clearInput() {
+        this.setData({
+            inputVal: ""
+        })
+    },
+
+    inputTyping(event) {
+        this.setData({
+            inputVal: event.detail.value 
+        })
     },
 
     getCatalogs() {

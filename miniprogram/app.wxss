@@ -1,4 +1,9 @@
 /** app.wxss **/
+@charset 'UTF-8';
+@import 'fontawesome/solid.wxss';
+@import 'fontawesome/brands.wxss';
+@import 'fontawesome/regular.wxss';
+@import 'fontawesome/fontawesome.wxss';
 
 .container {
     position: absolute;

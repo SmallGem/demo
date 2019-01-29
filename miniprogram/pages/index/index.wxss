@@ -1,6 +1,14 @@
 /** pages/index/index.wxss **/
+@charset 'UTF-8';
+@import '../../weui/searchbar.wxss';
 
 .index {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.index .catalogs-and-items {
     position: relative;
     display: flex;
     flex-direction: row;
@@ -13,7 +21,7 @@
 
 .index .catalog-wrapper {
     position: relative;
-    flex: 3;
+    flex: 3;    
     border-right: 1px solid #d8d8d8;
     box-sizing: border-box;
 }

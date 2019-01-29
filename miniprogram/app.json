@@ -21,10 +21,14 @@
         "list": [
             {
                 "pagePath": "pages/index/index",
-                "text": "店铺"
+                "text": "店铺",
+                "iconPath": "icons/store.png",
+                "selectedIconPath": "icons/store-selected.png"
             },{
                 "pagePath": "pages/user/user",
-                "text": "我的"
+                "text": "我的",
+                "iconPath": "icons/user.png",
+                "selectedIconPath": "icons/user-selected.png"
             }
         ]
     }
