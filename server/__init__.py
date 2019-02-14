@@ -2,7 +2,6 @@
 import os
 
 from flask import Flask, request, flash, redirect, url_for, render_template, session, make_response
-from flask_uploads import UploadSet, configure_uploads
 
 
 def create_app():
@@ -22,9 +21,20 @@ def create_app():
     except OSError:
         pass
 
+    # 为测试用跨域设置
+    from flask_cors import CORS  # 导入跨域包
+
+    CORS(app)
+
     # 加载数据库
     from .db import db
     db.init_app(app)
+
+    # 上传设置
+    from flask_uploads import UploadSet, configure_uploads
+
+    image_upload = UploadSet('image', default_dest=lambda instance: app.instance_path + '/item_image')
+    configure_uploads(app, image_upload)
 
     # 注册 API 路由
     from flask_restful import Api
@@ -68,26 +78,26 @@ def create_app():
         response.delete_cookie('username')
         return response
 
-    # 测试代码
-    avatar = UploadSet('avatar', default_dest=lambda instance: app.instance_path + '/avatar')
-    configure_uploads(app, avatar)
-
-    @app.route('/upload', methods=['GET', 'POST'])
-    def upload():
-        if request.method == 'POST' and 'avatar' in request.files:
-            filename = avatar.save(request.files['avatar'])
-            flash("Avatar saved.")
-            return redirect(url_for('show', name=filename))
-        return render_template('upload.html')
-
-    @app.route('/photo/<name>')
-    def show(name):
-        url = avatar.url(name)
-        return render_template('show.html', url=url)
-
-    @app.route('/cookie')
-    def cookie():
-        session['session-name'] = 'Tricker Pan'
-        return 'Hello, session'
+    # # 测试代码
+    # avatar = UploadSet('avatar', default_dest=lambda instance: app.instance_path + '/avatar')
+    # configure_uploads(app, avatar)
+    #
+    # @app.route('/upload', methods=['GET', 'POST'])
+    # def upload():
+    #     if request.method == 'POST' and 'avatar' in request.files:
+    #         filename = avatar.save(request.files['avatar'])
+    #         flash("Avatar saved.")
+    #         return redirect(url_for('show', name=filename))
+    #     return render_template('upload.html')
+    #
+    # @app.route('/photo/<name>')
+    # def show(name):
+    #     url = avatar.url(name)
+    #     return render_template('show.html', url=url)
+    #
+    # @app.route('/cookie')
+    # def cookie():
+    #     session['session-name'] = 'Tricker Pan'
+    #     return 'Hello, session'
 
     return app

@@ -53,6 +53,25 @@ Page({
                 }
             })
         }
+
+        wx.request({
+            method: 'PUT',
+            url: app.globalData.url + '/user/' + app.globalData.token,
+            data: {
+                nickname: this.data.userInfo.nickName,
+                avatar: this.data.userInfo.avatarUrl,
+                gender: this.data.userInfo.gender,
+                country: this.data.userInfo.country,
+                province: this.data.userInfo.province,
+                city: this.data.userInfo.city,
+            },
+            success: res => {
+                console.log(res.data)
+            },
+            fail: err => {
+                console.log(err.errMsg)
+            }
+        })
     },
 
     /**

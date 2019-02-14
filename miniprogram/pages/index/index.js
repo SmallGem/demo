@@ -10,7 +10,8 @@ Page({
         inputShowed: false,
         inputVal: "",
         catalogs: [],
-        activeCatalog: null
+        items: [],
+        activeCatalog: null,
     },
 
     showInput() {
@@ -60,7 +61,9 @@ Page({
             method: 'GET',
             url: app.globalData.url + '/item/' + catalogId,
             success: res => {
-                return res.data
+                this.setData({
+                    items: res.data,
+                })
             },
             fail: err => {
                 console.log(err.errMsg)

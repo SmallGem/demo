@@ -11,15 +11,22 @@ class App extends Component {
         super(props);
         this.state = {
             activeMenuItem: "home",
+            item: null,
         }
     }
 
-    selectMenuItem = (pageId) => {
-        console.log(pageId);
+    selectMenuItem(pageId) {
         this.setState({
             activeMenuItem: pageId,
         })
     };
+
+    modifyItem(item) {
+        this.setState({
+            item: item,
+            activeMenuItem: "addItem",
+        })
+    }
 
     renderPage() {
         let page;
@@ -28,10 +35,16 @@ class App extends Component {
                 page = <Home/>;
                 break;
             case "items":
-                page = <Item selectMenuItem={(pageId) => this.selectMenuItem(pageId)}/>;
+                page = <Item
+                    selectMenuItem={pageId => this.selectMenuItem(pageId)}
+                    modifyItem={item => this.modifyItem(item)}
+                />;
                 break;
             case "addItem":
-                page = <AddItem/>;
+                page = <AddItem
+                    selectMenuItem={pageId => this.selectMenuItem(pageId)}
+                    item={this.state.item}
+                />;
                 break;
             case "modifyItem":
                 page = <ModifyItem/>;

@@ -1,31 +1,48 @@
 import React, {Component} from 'react';
+import Request from '../../utils/Request';
 
-/**
- * @return {null} or {Component}
- */
-function ItemList(props) {
-    return props.items.map(item => {
-        let id = item.id;
-        let name = item.name;
-        let image = item.image;
-        let description = item.description;
-        let price = item.price;
-        let sold = item.sold;
+class ItemList extends Component {
+    static deleteItem(itemId) {
+        console.log(itemId);
+        let urlShard = "/item/" + itemId;
+        new Request("DELETE", urlShard);
+    }
 
-        return (
-            <tr>
-                <th>{name}</th>
-                <td><img src={image} alt={name}/></td>
-                <td>{description}</td>
-                <td>￥{price}</td>
-                <td>{sold}</td>
-                <td>
-                    <button className="button is-info">修改</button>
-                    <button className="button is-danger">删除</button>
-                </td>
-            </tr>
-        )
-    })
+    render() {
+        return this.props.items.map(item => {
+            let id = item.id;
+            let name = item.name;
+            let image = item.image;
+            let description = item.description;
+            let price = item.price;
+            let sold = item.sold;
+            console.log(id);
+
+            return (
+                <tr key={id}>
+                    <th>{name}</th>
+                    <td><img src={image} alt={name}/></td>
+                    <td>{description}</td>
+                    <td>￥{price}</td>
+                    <td>{sold}</td>
+                    <td>
+                        <button
+                            className="button is-info"
+                            onClick={() => this.props.modifyItem(item)}
+                        >
+                            修改
+                        </button>
+                        <button
+                            className="button is-danger"
+                            onClick={() => ItemList.deleteItem(id)}
+                        >
+                            删除
+                        </button>
+                    </td>
+                </tr>
+            )
+        });
+    }
 }
 
 class ItemTable extends Component {
@@ -43,7 +60,10 @@ class ItemTable extends Component {
                 </tr>
                 </thead>
                 <tbody>
-                <ItemList items={this.props.items ? this.props.items : []}/>
+                <ItemList
+                    items={this.props.items || []}
+                    modifyItem={item => this.props.modifyItem(item)}
+                />
                 </tbody>
             </table>
         )

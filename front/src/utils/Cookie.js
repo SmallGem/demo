@@ -1,10 +1,10 @@
 class Cookie {
     constructor() {
-        this.allCookies = this.cookies();
+        this.allCookies = Cookie.cookies();
         this.allKeys = this.keys();
     }
 
-    cookies = () => {
+    static cookies() {
         let cookie = {};
 
         let cookies = document.cookie;
@@ -23,7 +23,7 @@ class Cookie {
         return cookie;
     };
 
-    keys = () => {
+    keys() {
         let keys = [];
 
         if (this.allCookies === null) return [];
@@ -36,12 +36,12 @@ class Cookie {
         return keys;
     };
 
-    key = (n) => {
+    key(n) {
         if (n < 0 || n >= this.allKeys.length) return null;
         return this.allKeys[n];
     };
 
-    set = (key, value, age = 30 * 24 * 60 * 60, path = "/") => {
+    set(key, value, age = 30 * 24 * 60 * 60, path = "/") {
         if (!(key in this.allCookies)) this.allKeys.push(key);
 
         this.allCookies[key] = value;
@@ -53,11 +53,11 @@ class Cookie {
         document.cookie = oneCookie;
     };
 
-    get = (key) => {
+    get(key) {
         return this.allCookies[key] || null;
     };
 
-    delete = (key) => {
+    delete(key) {
         if (!(key in this.allCookies)) return;
         delete this.allCookies[key];
 
@@ -70,7 +70,7 @@ class Cookie {
         document.cookie = key + "=; max-age=0";
     };
 
-    clear = () => {
+    clear() {
         if (this.allCookies.length !== 0) return;
 
         for (let key in this.allCookies) {

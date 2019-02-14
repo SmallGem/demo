@@ -41,12 +41,26 @@
         </view>
     <view class='catalogs-and-items'>
         <scroll-view class='catalog-wrapper scroll' scroll-y>
-            <view id='{{catalog.id}}' class='{{catalog.id === activeCatalog ? "catalog active" : "catalog"}}' wx:for='{{catalogs}}' wx:for-item='catalog' wx:key='catalog.id' bindtap='selectCatalog'>
+            <view id='{{catalog.id}}' class='{{catalog.id === activeCatalog ? "catalog active" : "catalog"}}' wx:for='{{catalogs}}' wx:for-item='catalog' wx:key='{{catalog.id}}' bindtap='selectCatalog'>
                 {{catalog.name}}
             </view>
         </scroll-view>
         <scroll-view class='item-wrapper scroll'>
-
+            <view id='{{item.id}}' class='item' wx:for='{{items}}' wx:key='{{item.id}}'>
+                <image class='item-image' src='{{item.image}}'></image>
+                <view class='item-info'>
+                    <text class='item-name'>{{item.name}}</text>
+                    <text class='item-desc'>{{item.description}}</text>
+                    <view class='item-info__bottom'>
+                        <text class='item-price'>￥{{item.price}}</text>
+                        <view class='plus-and-minus'>
+                            <text class='minus fas fa-minus fa-xs fa-fw'></text>
+                            <text>0</text>
+                            <text class='plus fas fa-plus fa-xs fa-fw'></text>
+                        </view>
+                    </view>
+                </view>
+            </view>
         </scroll-view>
     </view>
 </view>

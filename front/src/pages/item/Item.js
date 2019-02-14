@@ -1,62 +1,9 @@
 import React, {Component} from 'react';
 import './item.css';
 import Request from '../../utils/Request';
+import CatalogDropdown from '../../components/dropdown/CatalogDropdown';
 import ItemTable from '../../components/table/ItemTable';
 import CatalogAlert from '../../components/alert/CatalogAlert';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-
-class CatalogDropdown extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isActive: false,
-        }
-    }
-
-    switchCatalogs = () => {
-        this.setState({
-            isActive: !this.state.isActive,
-        })
-    };
-
-    selectCatalog = (catalogId, catalogName) => {
-        this.setState({
-            isActive: false,
-        });
-        this.props.onClick(catalogId, catalogName);
-    };
-
-    renderCatalogList() {
-        return this.props.catalogs.map(catalog => {
-            return (
-                <a className={this.props.activeCatalog === catalog.name ? "dropdown-item is-active" : "dropdown-item"}
-                   onClick={() => this.selectCatalog(catalog.id, catalog.name)}>
-                    {catalog.name}
-                </a>
-            );
-        });
-    }
-
-    render() {
-        return (
-            <div className={this.state.isActive ? "dropdown is-active" : "dropdown"}>
-                <div className="dropdown-trigger" onClick={() => this.switchCatalogs()}>
-                    <button className="button" aria-haspopup="true" aria-controls="dropdown-menu">
-                        <span>{this.props.activeCatalog}</span>
-                        <span className="icon is-small">
-                            <FontAwesomeIcon icon="angle-down"/>
-                        </span>
-                    </button>
-                </div>
-                <div className="dropdown-menu" id="dropdown-menu" role="menu">
-                    <div className="dropdown-content">
-                        {this.renderCatalogList()}
-                    </div>
-                </div>
-            </div>
-        );
-    }
-}
 
 class Item extends Component {
     constructor(props) {
@@ -71,12 +18,12 @@ class Item extends Component {
                 id: 0,
                 name: "全部"
             },
-            items: [],
             activeCatalogAlert: false,
+            items: [],
         }
     }
 
-    getCatalogs = (catalogId = null) => {
+    getCatalogs(catalogId = null) {
         const urlShard = catalogId ? "/catalog/" + catalogId : "/catalog";
         let catalogs = new Request("GET", urlShard);
 
@@ -86,27 +33,25 @@ class Item extends Component {
                 name: "全部"
             }].concat(catalogs),
         });
-    };
+    }
 
-    getItems = (catalogId) => {
+    getItems(catalogId) {
         const urlShard = catalogId === 0 ? "/item" : "/item/" + catalogId;
-        let items;
-        items = new Request("GET", urlShard);
+        let items = new Request("GET", urlShard);
 
         this.setState({
             items: items,
         });
-    };
+    }
 
-    switchCatalogs = () => {
+    switchCatalogs() {
         this.setState({
             catalogSwitchIsActive: !this.state.catalogSwitchIsActive,
         });
-    };
+    }
 
-    selectCatalog = (catalogId, catalogName) => {
-        console.log(catalogId);
-        let items = this.getItems(catalogId);
+    selectCatalog(catalogId, catalogName) {
+        this.getItems(catalogId);
 
         this.setState({
             catalogSwitchIsActive: false,
@@ -114,26 +59,25 @@ class Item extends Component {
                 id: catalogId,
                 name: catalogName
             },
-            items: items,
         });
-    };
+    }
 
-    deleteCatalogAndItems = () => {
+    deleteCatalogAndItems() {
         const catalogId = this.state.activeCatalog.id;
         const urlShard = "/catalog/" + catalogId;
 
         new Request("DELETE", urlShard);
 
         this.getCatalogs();
-    };
+    }
 
-    openCatalogAlert = () => {
+    openCatalogAlert() {
         this.setState({
             activeCatalogAlert: true,
         });
     };
 
-    closeCatalogAlert = () => {
+    closeCatalogAlert() {
         this.setState({
             activeCatalogAlert: false,
         })
@@ -191,7 +135,10 @@ class Item extends Component {
                         </div>
                     </div>
                 </nav>
-                <ItemTable items={this.state.items}/>
+                <ItemTable
+                    items={this.state.items}
+                    modifyItem={item => this.props.modifyItem(item)}
+                />
                 {this.renderCatalogAlert()}
             </div>
         )

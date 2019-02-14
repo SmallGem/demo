@@ -10,13 +10,13 @@ class CatalogAlert extends Component {
         }
     }
 
-    handleCatalogChange = (event) => {
+    handleCatalogChange(event) {
         this.setState({
             catalog: event.target.value,
         });
     };
 
-    storeCatalog = () => {
+    storeCatalog() {
         const urlShard = "/catalog";
         const data = {
             name: this.state.catalog,

@@ -47,6 +47,7 @@ App({
 
         // 登录
         function login() {
+            let that = this
             wx.login({
                 success: res => {
                     // 发送 res.code 到后台换取 openId, sessionKey, unionId
@@ -55,7 +56,7 @@ App({
                         method: 'POST',
                         url: 'http://application.test:5000/user',
                         data: {
-                            code: res.code
+                            code: res.code,
                         },
                         success: res => {
                             console.log(res.data)

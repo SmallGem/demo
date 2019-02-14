@@ -8,21 +8,23 @@ import * as serviceWorker from './serviceWorker';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
-    faIgloo,
-    faUser,
-    faUnlock,
+    faAngleDown,
     faCheck,
+    faCloudUploadAlt,
     faExclamationTriangle,
-    faAngleDown
+    faIgloo,
+    faUnlock,
+    faUser,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
-    faIgloo,
-    faUser,
-    faUnlock,
+    faAngleDown,
     faCheck,
+    faCloudUploadAlt,
     faExclamationTriangle,
-    faAngleDown
+    faIgloo,
+    faUnlock,
+    faUser,
 );
 
 const logged = () => {

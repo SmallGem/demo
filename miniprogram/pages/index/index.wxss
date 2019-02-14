@@ -3,14 +3,13 @@
 @import '../../weui/searchbar.wxss';
 
 .index {
-    position: relative;
-    display: flex;
     flex-direction: column;
 }
 
 .index .catalogs-and-items {
     position: relative;
     display: flex;
+    height: 100%;
     flex-direction: row;
 }
 
@@ -47,4 +46,76 @@
 .index .item-wrapper {
     position: relative;
     flex: 7;
+    display: flex;
+    flex-direction: column;
+}
+
+.index .item-wrapper .item {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 160rpx;
+    padding: 16rpx;
+    border-bottom: 1px solid #d8d8d8;
+    box-sizing: border-box;
+}
+
+.index .item-wrapper .item .item-image {
+    position: relative;
+    width: 128rpx;
+    height: 128rpx;
+}
+
+.index .item-wrapper .item .item-info {
+    position: absolute;
+    top: 16rpx;
+    right: 16rpx;
+    bottom: 16rpx;
+    left: 160rpx;
+    display: flex;
+    flex-direction: column;
+}
+
+.index .item-wrapper .item .item-info .item-name {
+    position: relative;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.index .item-wrapper .item .item-info .item-desc {
+    position: relative;
+    font-size: .8em;
+    color: #666;
+}
+
+.index .item-wrapper .item .item-info .item-info__bottom {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.index .item-wrapper .item .item-info .item-price {
+    position: relative;
+    color: #f00;
+}
+
+.index .item-wrapper .item .item-info .plus,
+.index .item-wrapper .item .item-info .minus {
+    width: 32rpx;
+    height: 32rpx;
+    padding: 2rpx;
+    margin-left: 4rpx;
+    line-height: 32rpx;
+    background: #83ae9b;
+    border-radius: 50%;
+}
+
+.index .item-wrapper .item .item-info .minus {
+    margin-right: 4rpx; 
 }

@@ -12,7 +12,7 @@ class Item(db.Model, BaseMixin):
     description = db.Column(db.String(200))
     price = db.Column(db.DECIMAL(6, 2), nullable=False)
     sold = db.Column(db.Integer, default=0)
-    catalog_id = db.Column(UUID, nullable=True)
+    catalog_id = db.Column(UUID, nullable=False)
 
     def to_dist(self):
         return {
