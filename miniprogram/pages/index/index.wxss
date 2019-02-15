@@ -20,7 +20,7 @@
 
 .index .catalog-wrapper {
     position: relative;
-    flex: 3;    
+    flex: 3;
     border-right: 1px solid #d8d8d8;
     box-sizing: border-box;
 }
@@ -85,7 +85,7 @@
 
 .index .item-wrapper .item .item-info .item-desc {
     position: relative;
-    font-size: .8em;
+    font-size: 0.8em;
     color: #666;
 }
 
@@ -110,12 +110,12 @@
     width: 32rpx;
     height: 32rpx;
     padding: 2rpx;
-    margin-left: 4rpx;
+    margin-left: 8rpx;
     line-height: 32rpx;
     background: #83ae9b;
     border-radius: 50%;
 }
 
 .index .item-wrapper .item .item-info .minus {
-    margin-right: 4rpx; 
+    margin-right: 8rpx;
 }

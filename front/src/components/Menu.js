@@ -23,7 +23,7 @@ class Menu extends Component {
                 <ul className="menu-list">
                     <li>{this.renderMenuItem("items", "商品")}</li>
                     <li>{this.renderMenuItem("orders", "订单")}</li>
-                    <li>{this.renderMenuItem("users", "所有用户")}</li>
+                    <li>{this.renderMenuItem("users", "用户列表")}</li>
                 </ul>
             </aside>
         )

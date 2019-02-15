@@ -35,7 +35,7 @@ Page({
 
     inputTyping(event) {
         this.setData({
-            inputVal: event.detail.value 
+            inputVal: event.detail.value
         })
     },
 
@@ -61,8 +61,13 @@ Page({
             method: 'GET',
             url: app.globalData.url + '/item/' + catalogId,
             success: res => {
+                let items = res.data.map(item => {
+                    item.count = 0
+                    return item
+                })
+
                 this.setData({
-                    items: res.data,
+                    items: items
                 })
             },
             fail: err => {
@@ -78,6 +83,34 @@ Page({
         this.getItems(event.currentTarget.id)
     },
 
+    addCount(event) {
+        let id = event.target.dataset.id
+        let items = this.data.items.map(item => {
+            if (item.id === id) {
+                item.count++
+            }
+            return item
+        })
+
+        this.setData({
+            items: items,
+        })
+    },
+
+    subCount(event) {
+        let id = event.target.dataset.id
+        let items = this.data.items.map(item => {
+            if (item.id === id && item.count > 0) {
+                item.count--
+            }
+            return item
+        })
+
+        this.setData({
+            items: items,
+        })
+    },
+
     /**
      * Lifecycle function--Called when page load
      */
@@ -89,14 +122,14 @@ Page({
      * Lifecycle function--Called when page is initially rendered
      */
     onReady: function() {
-        
+
     },
 
     /**
      * Lifecycle function--Called when page show
      */
-    onShow: function () {
-        
+    onShow: function() {
+
     },
 
     /**

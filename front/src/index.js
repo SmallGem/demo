@@ -13,8 +13,11 @@ import {
     faCloudUploadAlt,
     faExclamationTriangle,
     faIgloo,
+    faMars,
+    faQuestion,
     faUnlock,
     faUser,
+    faVenus,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -23,8 +26,11 @@ library.add(
     faCloudUploadAlt,
     faExclamationTriangle,
     faIgloo,
+    faMars,
+    faQuestion,
     faUnlock,
     faUser,
+    faVenus,
 );
 
 const logged = () => {

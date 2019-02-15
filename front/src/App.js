@@ -4,7 +4,7 @@ import Menu from './components/Menu';
 import Home from './pages/Home';
 import Item from './pages/item/Item';
 import AddItem from './pages/item/Add';
-import ModifyItem from './pages/item/Modify';
+import User from './pages/user/User';
 
 class App extends Component {
     constructor(props) {
@@ -16,6 +16,14 @@ class App extends Component {
     }
 
     selectMenuItem(pageId) {
+        if (this.state.item) {
+            this.setState({
+                activeMenuItem: pageId,
+                item: null
+            });
+            return;
+        }
+
         this.setState({
             activeMenuItem: pageId,
         })
@@ -46,8 +54,8 @@ class App extends Component {
                     item={this.state.item}
                 />;
                 break;
-            case "modifyItem":
-                page = <ModifyItem/>;
+            case "users":
+                page = <User/>;
                 break;
             default:
                 page = <Home/>;
