@@ -10,27 +10,37 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    height: 64rpx;
+    height: 96rpx;
     background: #83ae9b;
 }
 
-.cart-wrapper .font-icon {
-    width: 64rpx;
-    color: #f9cdae;
+.cart-wrapper .cart-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.cart-wrapper .cart-box .font-icon {
+    width: 96rpx;
+    color: #ef4566;
+}
+
+.cart-wrapper .cart-box .cart-total {
+    color: #f00;
+    font-size: 1.3rem
 }
 
 .cart-wrapper .cart-btn {
     position: relative;
-    width: 128rpx;
-    height: 64rpx;
+    width: 192rpx;
+    height: 96rpx;
     padding-right: 8rpx;
-    font-size: 1.2em;
-    font-weight: 600;
+    font-size: 1.4em;
+    font-weight: 700;
     text-align: center;
-    line-height: 64rpx;
+    line-height: 96rpx;
     color: #fff;
     background: #ef4566;
-    border-radius: 0;
     box-sizing: border-box;
 }
 
@@ -41,7 +51,7 @@
     bottom: 0;
     width: 0;
     height: 0;
-    border-width: 0 0 64rpx 32rpx;
+    border-width: 0 0 96rpx 32rpx;
     border-style: none none solid solid;
     border-color: transparent transparent #ef4566 transparent;
 }

@@ -12,6 +12,14 @@ Page({
         catalogs: [],
         items: [],
         activeCatalog: null,
+        total: 0,
+    },
+
+    goToOrder() {
+        console.log('You hit me.')
+        wx.navigateTo({
+            url: '../order/order',
+        })
     },
 
     showInput() {
