@@ -63,5 +63,5 @@
             </view>
         </scroll-view>
     </view>
-    <view class='cart-wrapper'></view>
+    <include src='./cart/cart.wxml'/>
 </view>

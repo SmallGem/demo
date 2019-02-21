@@ -1,14 +1,22 @@
 <!--pages/user/user.wxml-->
 
-<view class="container">
-    <view class="userinfo">
-        <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+<view class="container user">
+    <view class="user-info">
+        <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">登录</button>
         <block wx:else>
-            <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-            <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+            <view class='user-avatar'>
+                <image src="{{userInfo.avatarUrl}}"></image>
+                <text wx:if='{{userInfo.gender === 1}}' class='fas fa-mars fa-fw'></text>
+                <text wx:elif='{{userInfo.gender === 2}}' class='fas fa-venus fa-fw'></text>
+                <text wx:else class='fas fa-question fa-fw'></text>
+            </view>
+            <text class="user-nickname">{{userInfo.nickName}}</text>
         </block>
     </view>
-    <view class="usermotto">
-        <text class="user-motto">{{motto}}</text>
+    <view>
+        <text>我的订单</text>
+    </view>
+    <view>
+        <text>地址管理</text>
     </view>
 </view>

@@ -1,0 +1,5 @@
+<!--pages/index/cart/cart.wxml-->
+<view class='cart-wrapper'>
+    <text class='fas fa-shopping-cart fa-fw fa-lg font-icon'></text>
+    <view class='cart-btn'>下单</view>
+</view>

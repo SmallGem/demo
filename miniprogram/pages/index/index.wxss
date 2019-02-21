@@ -1,6 +1,7 @@
 /** pages/index/index.wxss **/
 @charset 'UTF-8';
 @import '../../weui/searchbar.wxss';
+@import './cart/cart.wxss';
 
 .index {
     flex-direction: column;
@@ -16,13 +17,16 @@
 .index .scroll {
     position: relative;
     height: 100%;
+    padding-bottom: 64rpx;
+    box-sizing: border-box;
 }
 
 .index .catalog-wrapper {
     position: relative;
     flex: 3;
+    display: flex;
+    flex-direction: column;
     border-right: 1px solid #d8d8d8;
-    box-sizing: border-box;
 }
 
 .index .catalog-wrapper .catalog {
