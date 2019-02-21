@@ -12,6 +12,7 @@ Page({
         catalogs: [],
         items: [],
         activeCatalog: null,
+        cart: [],
         total: 0,
     },
 
@@ -93,29 +94,66 @@ Page({
 
     addCount(event) {
         let id = event.target.dataset.id
+        let cart = this.data.cart
         let items = this.data.items.map(item => {
             if (item.id === id) {
                 item.count++
+                    if (item.count === 1) {
+                        cart.push(item)
+                    } else {
+                        cart = cart.map(cartItem => {
+                            if (cartItem.id === item.id) {
+                                cartItem.count = item.count
+                            }
+                            return cartItem
+                        })
+                    }
             }
             return item
         })
 
         this.setData({
             items: items,
+            cart: cart,
         })
+        console.log(this.data.cart)
     },
 
     subCount(event) {
         let id = event.target.dataset.id
+        let cart = this.data.cart
         let items = this.data.items.map(item => {
             if (item.id === id && item.count > 0) {
                 item.count--
+                if (item.count === 0) {
+                    for (let k in cart) {
+                        if (cart[k].id === item.id) {
+                            cart.splice(k, 1)
+                        }
+                    }
+                } else {
+                    cart = cart.map(cartItem => {
+                        if (cartItem.id === item.id) {
+                            cartItem.count = item.count
+                        }
+                        return cartItem
+                    })
+                }
             }
             return item
         })
 
         this.setData({
             items: items,
+            cart: cart,
+        })
+        console.log(this.data.cart)
+    },
+
+    updateCart() {
+        let cart = this.data.cart
+        wx.request({
+            url: 'http://application.test:5000/cart',
         })
     },
 

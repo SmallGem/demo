@@ -7,7 +7,7 @@ from ..db import db, BaseMixin
 class Cart(db.Model, BaseMixin):
 
     items = db.Column(JSON)
-    user_id = db.Column(UUID, unique=True, nullable=False)
+    user_id = db.Column(UUID(as_uuid=True), unique=True, nullable=False)
 
     def to_dist(self):
         return {

@@ -7,6 +7,7 @@ from flask_restful import Resource, reqparse
 from ..controller.request_controller import get
 from ..db import db
 from ..model.user import User
+from ..model.cart import Cart
 
 parser = reqparse.RequestParser()
 parser.add_argument('nickname', type=str, help='{error_msg}')
@@ -80,7 +81,14 @@ class UserAPI(Resource):
             session_key=result['session_key']
         )
 
+        cart_id = uuid.uuid4()
+        cart = Cart(
+            id=cart_id,
+            user_id=user_id
+        )
+
         db.session.add(user)
+        db.session.add(cart)
         db.session.commit()
 
         return user.to_dist()

@@ -13,8 +13,8 @@ class Order(db.Model, BaseMixin):
     number = db.Column(db.String(64), unique=True, nullable=False)
     items = db.Column(JSON, nullable=False)
     price = db.Column(db.DECIMAL(6, 2), nullable=False)
-    address_id = db.Column(UUID, nullable=False)
-    user_id = db.Column(UUID, nullable=False)
+    address_id = db.Column(UUID(as_uuid=True), nullable=False)
+    user_id = db.Column(UUID(as_uuid=True), nullable=False)
 
     def to_dist(self):
         return {
