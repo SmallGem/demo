@@ -38,7 +38,10 @@ App({
             success: res => {
                 let token = checkStorage('token')
                 this.globalData.token = token
-                console.log(this.globalData.token)
+
+                if (this.checkSessionCallback) {
+                    this.checkSessionCallback(token)
+                }
             },
             fail: res => {
                 login()

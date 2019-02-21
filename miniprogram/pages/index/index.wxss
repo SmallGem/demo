@@ -111,6 +111,7 @@
 
 .index .item-wrapper .item .item-info .plus,
 .index .item-wrapper .item .item-info .minus {
+    position: relative;
     width: 32rpx;
     height: 32rpx;
     padding: 2rpx;

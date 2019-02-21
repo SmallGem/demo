@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import uuid
+import json
 
 from flask_restful import Resource, reqparse
 
@@ -30,20 +31,19 @@ class CartAPI(Resource):
                 db.session.add(cart)
                 db.session.commit()
 
-                return cart.to_dist()
+                return cart.items
 
-            return cart.to_dist()
+            return cart.items
 
     def put(self, user_id):
         args = parser.parse_args()
 
+        print(args['items'])
         cart = Cart.query.filter_by(user_id=user_id).first()
-        if args['items'] != cart.items:
-            cart.items = args['items']
+        cart.items = args['items']
 
         db.session.commit()
-
-        return cart.to_dist()
+        return cart.items
 
     def delete(self, user_id):
         cart = Cart.query.filter_by(user_id=user_id).first()

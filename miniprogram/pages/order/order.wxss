@@ -1,1 +1,29 @@
 /* pages/order/order.wxss */
+
+.order {
+    flex-direction: column;
+}
+
+.order .order-wrapper {
+    position: relative;
+    height: 100%;
+    padding-bottom: 96rpx;
+    box-sizing: border-box;
+}
+
+.order .order-wrapper .order-item {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16rpx;
+    border-bottom: 1px solid #d8d8d8;
+    box-sizing: border-box;
+}
+
+.order .order-wrapper .order-item image {
+    position: relative;
+    width: 96rpx;
+    height: 96rpx;
+}

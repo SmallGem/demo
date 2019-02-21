@@ -17,9 +17,9 @@ Page({
     },
 
     goToOrder() {
-        console.log('You hit me.')
+        let items = JSON.stringify(this.data.cart)
         wx.navigateTo({
-            url: '../order/order',
+            url: '../order/order?items=' + items,
         })
     },
 
@@ -57,6 +57,7 @@ Page({
                     catalogs: res.data,
                     activeCatalog: res.data[0].id
                 })
+
                 this.getItems(res.data[0].id)
             },
             fail: err => {
@@ -70,11 +71,19 @@ Page({
             method: 'GET',
             url: app.globalData.url + '/item/' + catalogId,
             success: res => {
+                let cart = this.data.cart
                 let items = res.data.map(item => {
+                    for (let k in cart) {
+                        if (item.id === cart[k].id) {
+                            item.count = cart[k].count
+                            return item
+                        }
+                    }
                     item.count = 0
+
                     return item
                 })
-
+                
                 this.setData({
                     items: items
                 })
@@ -101,12 +110,12 @@ Page({
                     if (item.count === 1) {
                         cart.push(item)
                     } else {
-                        cart = cart.map(cartItem => {
-                            if (cartItem.id === item.id) {
-                                cartItem.count = item.count
+                        for (let k in cart) {
+                            if (cart[k].id === item.id) {
+                                cart[k].count = item.count
+                                break
                             }
-                            return cartItem
-                        })
+                        }
                     }
             }
             return item
@@ -116,7 +125,8 @@ Page({
             items: items,
             cart: cart,
         })
-        console.log(this.data.cart)
+
+        this.updateCart()
     },
 
     subCount(event) {
@@ -125,20 +135,20 @@ Page({
         let items = this.data.items.map(item => {
             if (item.id === id && item.count > 0) {
                 item.count--
-                if (item.count === 0) {
-                    for (let k in cart) {
-                        if (cart[k].id === item.id) {
-                            cart.splice(k, 1)
+                    if (item.count === 0) {
+                        for (let k in cart) {
+                            if (cart[k].id === item.id) {
+                                cart.splice(k, 1)
+                            }
+                        }
+                    } else {
+                        for (let k in cart) {
+                            if (cart[k].id === item.id) {
+                                cart[k].count = item.count
+                                break
+                            }
                         }
                     }
-                } else {
-                    cart = cart.map(cartItem => {
-                        if (cartItem.id === item.id) {
-                            cartItem.count = item.count
-                        }
-                        return cartItem
-                    })
-                }
             }
             return item
         })
@@ -147,21 +157,73 @@ Page({
             items: items,
             cart: cart,
         })
-        console.log(this.data.cart)
+
+        this.updateCart()
+    },
+
+    getCart() {
+        let token = app.globalData.token
+
+        wx.request({
+            method: 'GET',
+            url: 'http://application.test:5000/cart/' + token,
+            success: res => {
+                let cart = JSON.parse(res.data.replace(new RegExp(/\'/g), '\"'))
+                let total = this.calculateTotal(cart)
+
+                this.setData({
+                    cart: cart,
+                    total: total
+                })
+
+                this.getCatalogs()
+            }
+        })
     },
 
     updateCart() {
         let cart = this.data.cart
+        let token = app.globalData.token
+
         wx.request({
-            url: 'http://application.test:5000/cart',
+            method: 'PUT',
+            url: 'http://application.test:5000/cart/' + token,
+            data: {
+                items: JSON.stringify(cart)
+            },
+            success: res => {
+                let cart = JSON.parse(res.data.replace(new RegExp(/\'/g), '\"'))
+                console.log(cart)
+                let total = this.calculateTotal(cart)
+
+                this.setData({
+                    total: total
+                })
+            }
         })
+    },
+
+    calculateTotal(cart) {
+        let total = 0
+
+        cart.forEach(item => {
+            total += item.price * item.count
+        })
+
+        return total.toFixed(2)
     },
 
     /**
      * Lifecycle function--Called when page load
      */
     onLoad: function(options) {
-        this.getCatalogs()
+        if (app.globalData.token) {
+            this.getCart()
+        } else {
+            app.checkSessionCallback = res => {
+                this.getCart()
+            }
+        }
     },
 
     /**

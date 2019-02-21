@@ -81,14 +81,7 @@ class UserAPI(Resource):
             session_key=result['session_key']
         )
 
-        cart_id = uuid.uuid4()
-        cart = Cart(
-            id=cart_id,
-            user_id=user_id
-        )
-
         db.session.add(user)
-        db.session.add(cart)
         db.session.commit()
 
         return user.to_dist()
