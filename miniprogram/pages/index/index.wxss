@@ -84,7 +84,7 @@
 .index .item-wrapper .item .item-info .item-name {
     position: relative;
     font-size: 1.2em;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .index .item-wrapper .item .item-info .item-desc {

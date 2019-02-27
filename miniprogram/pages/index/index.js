@@ -18,6 +18,7 @@ Page({
 
     goToOrder() {
         let items = JSON.stringify(this.data.cart)
+        console.log(items)
         wx.navigateTo({
             url: '../order/order?items=' + items,
         })

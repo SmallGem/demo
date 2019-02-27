@@ -37,8 +37,15 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
-			"list": []
+			"current": 0,
+			"list": [
+				{
+					"id": -1,
+					"name": "带参数的 order 页面",
+					"pathName": "pages/order/order",
+					"query": "items=[{\"id\":\"53417732-3024-11e9-b1e3-28b2bd4b3426\",\"name\":\"测试商品1\",\"image\":\"http://application.test:5000/_uploads/image/avatar_2.jpg\",\"description\":\"测试专用\",\"price\":\"4567.00\",\"sold\":\"0\",\"catalog\":{\"id\":\"a49de764-2ff7-11e9-b1e3-28b2bd4b3426\",\"name\":\"主目录\"},\"count\":2},{\"id\":\"d958eec4-30bd-11e9-a7f0-28b2bd4b3426\",\"name\":\"测试商品2\",\"image\":\"http://application.test:5000/_uploads/image/2_artwork_artwork2_3.jpg\",\"description\":\"\",\"price\":\"12.22\",\"sold\":\"0\",\"catalog\":{\"id\":\"a49de764-2ff7-11e9-b1e3-28b2bd4b3426\",\"name\":\"主目录\"},\"count\":1},{\"id\":\"d4c252a0-30be-11e9-a7f0-28b2bd4b3426\",\"name\":\"测试商品8\",\"image\":\"http://application.test:5000/_uploads/image/avatar_5.jpg\",\"description\":\"\",\"price\":\"55.00\",\"sold\":\"0\",\"catalog\":{\"id\":\"a49de764-2ff7-11e9-b1e3-28b2bd4b3426\",\"name\":\"主目录\"},\"count\":1},{\"id\":\"fc8dc932-30bd-11e9-a7f0-28b2bd4b3426\",\"name\":\"测试商品4\",\"image\":\"http://application.test:5000/_uploads/image/2_artwork_artwork2_4.jpg\",\"description\":\"测试描述\",\"price\":\"75.23\",\"sold\":\"0\",\"catalog\":{\"id\":\"c23012c2-30bd-11e9-a7f0-28b2bd4b3426\",\"name\":\"测试二\"},\"count\":1}]"
+				}
+			]
 		}
 	}
 }

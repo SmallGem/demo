@@ -2,7 +2,10 @@
     "pages": [
         "pages/index/index",
         "pages/user/user",
-        "pages/order/order"
+        "pages/user/order/order",
+        "pages/order/order",
+        "pages/address/address",
+        "pages/address/add/add"
     ],
     "window": {
         "navigationBarBackgroundColor": "#ef4566",

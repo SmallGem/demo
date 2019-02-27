@@ -11,7 +11,30 @@
     box-sizing: border-box;
 }
 
-.order .order-wrapper .order-item {
+.order .order-wrapper view {
+    margin-bottom: 32rpx;
+    background: #fff;
+}
+
+.order .order-wrapper .order-address-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16rpx;
+    border-bottom: 1px solid #d8d8d8;
+}
+
+.order .order-wrapper .order-address-box .no-address {
+    position: relative;
+    width: 256rpx;
+    height: 64rpx;
+}
+
+.order .order-wrapper .order-item-box {
+    border-top: 1px solid #d8d8d8;
+}
+
+.order .order-wrapper .order-item-box .order-item {
     position: relative;
     display: flex;
     flex-direction: row;
@@ -22,8 +45,22 @@
     box-sizing: border-box;
 }
 
-.order .order-wrapper .order-item image {
+.order .order-wrapper .order-item-box .order-item image {
     position: relative;
     width: 96rpx;
     height: 96rpx;
+}
+
+.order-confirm {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 96rpx;
+    font-size: 1.2em;
+    font-weight: 700;
+    text-align: center;
+    line-height: 96rpx;
+    color: #fff;
+    background: #ef4566;
 }
