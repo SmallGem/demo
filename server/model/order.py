@@ -18,8 +18,9 @@ class Order(db.Model, BaseMixin):
 
     def to_dist(self):
         return {
+            'id': str(self.id),
             'number': self.number,
             'items': self.items,
-            'price': self.price,
-            'address': Address.query.get(self.address_id)
+            'price': str(self.price),
+            'address': Address.query.get(self.address_id).to_dist()
         }

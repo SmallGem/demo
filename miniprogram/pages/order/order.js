@@ -1,11 +1,134 @@
 // pages/order/order.js
+const app = getApp()
+
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        items: []
+        address: null,
+        items: [],
+        total: null,
+    },
+
+    goToAddress() {
+        wx.navigateTo({
+            url: '../address/address'
+        })
+    },
+
+    addCount(event) {
+        let id = event.target.dataset.id
+        let items = this.data.items.map(item => {
+            if (item.id === id) {
+                item.count++
+            }
+            return item
+        })
+
+        this.setData({
+            items: items,
+        })
+
+        this.updateCart()
+    },
+
+    subCount(event) {
+        let id = event.target.dataset.id
+        let items = this.data.items.map(item => {
+            if (item.id === id && item.count > 0) {
+                item.count--
+            }
+            return item
+        })
+
+        this.setData({
+            items: items,
+        })
+
+        this.updateCart()
+    },
+
+    updateCart() {
+        let cart = []
+        this.data.items.forEach(item => {
+            if (item.count > 0) {
+                cart.push(item)
+            }
+        })
+        let token = app.globalData.token
+
+        wx.request({
+            method: 'PUT',
+            url: 'http://application.test:5000/cart/' + token,
+            data: {
+                items: JSON.stringify(cart)
+            },
+            success: res => {
+                let cart = JSON.parse(res.data.replace(new RegExp(/\'/g), '\"'))
+                console.log(cart)
+                let total = this.calculateTotal(cart)
+
+                this.setData({
+                    total: total
+                })
+            }
+        })
+    },
+
+    calculateTotal(cart) {
+        let total = 0
+        let price = 0
+        cart.forEach(item => {
+            total += item.count
+            price += item.price * item.count
+        })
+
+        return {
+            total: total,
+            price: price
+        }
+    },
+
+    confirmOrder() {
+        if (!this.data.address) {
+            wx.showToast({
+                title: '请选择地址',
+                icon: 'none',
+                duration: 2000
+            })
+            return
+        }
+
+        if (!this.data.total.total > 0) {
+            wx.showToast({
+                title: '请选择商品',
+                icon: 'none',
+                duration: 2000
+            })
+        }
+
+        wx.request({
+            method: 'POST',
+            url: 'http://application.test:5000/order',
+            data: {
+                items: this.data.items,
+                price: this.data.total.price,
+                address_id: this.data.address.id,
+                user_id: app.globalData.token
+            },
+            success: res => {
+                console.log(res.data)
+                this.setData({
+                    items: []
+                })
+                this.updateCart()
+                wx.navigateBack({
+                    delta: 7
+                })
+            }
+        })
     },
 
     /**
@@ -13,10 +136,12 @@ Page({
      */
     onLoad: function (options) {
         let items = JSON.parse(options.items)
+        let total = this.calculateTotal(items)
         console.log(items)
 
         this.setData({
-            items: items
+            items: items,
+            total: total,
         })
     },
 
@@ -31,7 +156,10 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
+        let address = app.globalData.address
+        this.setData({
+            address: address
+        })
     },
 
     /**

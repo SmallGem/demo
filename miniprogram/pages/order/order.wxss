@@ -1,4 +1,5 @@
 /* pages/order/order.wxss */
+@charset 'UTF-8';
 
 .order {
     flex-direction: column;
@@ -11,7 +12,10 @@
     box-sizing: border-box;
 }
 
-.order .order-wrapper view {
+.order .order-wrapper .order-address-box, 
+.order .order-wrapper .order-item-box,
+.order .order-wrapper .order-remark-box {
+    position: relative;
     margin-bottom: 32rpx;
     background: #fff;
 }
@@ -19,15 +23,38 @@
 .order .order-wrapper .order-address-box {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    width: 100%;
     padding: 16rpx;
     border-bottom: 1px solid #d8d8d8;
+}
+
+.order .order-wrapper .order-address-box .custom-info {
+    position: relative;
+    font-size: 1.2em;
+    font-weight: 700;
+}
+
+.order .order-wrapper .order-address-box .custom-mobile {
+    position: relative;
+    font-size: 1.1em;
+}
+
+.order .order-wrapper .order-address-box .address-info {
+    position: relative;
+    font-size: 1.1em;
+    color: #666;
 }
 
 .order .order-wrapper .order-address-box .no-address {
     position: relative;
     width: 256rpx;
     height: 64rpx;
+    margin: 36rpx auto;
+    text-align: center;
+    line-height: 64rpx;
+    background: #f69a9a;
+    border-radius: 8rpx;
+    box-sizing: border-box;
 }
 
 .order .order-wrapper .order-item-box {
@@ -49,6 +76,44 @@
     position: relative;
     width: 96rpx;
     height: 96rpx;
+}
+
+.order .order-wrapper .order-item-box .order-item .order-item__button {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+}
+
+.order .order-wrapper .order-item-box .order-item .order-item__button .minus,
+.order .order-wrapper .order-item-box .order-item .order-item__button .plus {
+    position: relative;
+    width: 32rpx;
+    height: 32rpx;
+    padding: 2rpx;
+    margin-left: 8rpx;
+    line-height: 32rpx;
+    background: #83ae9b;
+    border-radius: 50%;
+}
+
+.order .order-wrapper .order-item-box .order-item .order-item__button .minus {
+    margin-right: 8rpx;
+}
+
+.order .order-wrapper .order-item-box .order-item-total {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order .order-wrapper .order-remark-box {
+    position: relative;
+    padding: 16rpx;
+    box-sizing: border-box;
 }
 
 .order-confirm {

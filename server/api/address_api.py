@@ -41,8 +41,35 @@ class AddressAPI(Resource):
             user_id=args['user_id']
         )
 
+        db.session.add(address)
+        db.session.commit()
+
+        return address.to_dist()
+
     def put(self, user_id):
-        pass
+        args = parser.parse_args()
+
+        address = Address.query.get(user_id)
+        if args['name'] != address.name:
+            address.name = args['name']
+        if args['gender'] != address.gender:
+            address.gender = args['gender']
+        if args['mobile'] != address.mobile:
+            address.mobile = args['mobile']
+        if args['address'] != address.address:
+            address.address = args['address']
+
+        db.session.commit()
+
+        return address.to_dist()
 
     def delete(self, user_id):
-        pass
+        address = Address.query.get(user_id)
+
+        db.session.delete(address)
+        db.session.commit()
+
+        return {
+            'errcode': 0,
+            'errmsg': 'ok'
+        }

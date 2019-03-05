@@ -169,13 +169,15 @@ Page({
             method: 'GET',
             url: 'http://application.test:5000/cart/' + token,
             success: res => {
-                let cart = JSON.parse(res.data.replace(new RegExp(/\'/g), '\"'))
-                let total = this.calculateTotal(cart)
+                if (res.data) {
+                    let cart = JSON.parse(res.data.replace(new RegExp(/\'/g), '\"'))
+                    let total = this.calculateTotal(cart)
 
-                this.setData({
-                    cart: cart,
-                    total: total
-                })
+                    this.setData({
+                        cart: cart,
+                        total: total
+                    })
+                }
 
                 this.getCatalogs()
             }
@@ -218,13 +220,7 @@ Page({
      * Lifecycle function--Called when page load
      */
     onLoad: function(options) {
-        if (app.globalData.token) {
-            this.getCart()
-        } else {
-            app.checkSessionCallback = res => {
-                this.getCart()
-            }
-        }
+        
     },
 
     /**
@@ -238,7 +234,13 @@ Page({
      * Lifecycle function--Called when page show
      */
     onShow: function() {
-
+        if (app.globalData.token) {
+            this.getCart()
+        } else {
+            app.checkSessionCallback = res => {
+                this.getCart()
+            }
+        }
     },
 
     /**

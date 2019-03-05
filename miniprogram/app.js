@@ -97,6 +97,7 @@ App({
     globalData: {
         url: 'http://application.test:5000',
         userInfo: null,
+        address: null,
         token: null,
     }
 })

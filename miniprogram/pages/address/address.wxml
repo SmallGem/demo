@@ -1,2 +1,25 @@
 <!--pages/address/address.wxml-->
-<text>pages/address/address.wxml</text>
+<view class='container address'>
+    <block wx:if='{{addresses.length > 0 && addresses}}'>
+        <scroll-view class='address-box'>
+            <view id='{{address.id}}' class='address-item' wx:for='{{addresses}}' wx:for-item='address' wx:key='id' bindtap='selectedAddress'>
+                <view class='custom-info'>
+                    <text>{{address.name}}</text>
+                    <text wx:if='{{address.gender === 1}}'>先生</text>
+                    <text wx:elif='{{address.gender === 2}}'>女士</text>
+                    <text wx:else>保密</text>
+                </view>
+                <view class='custom-mobile'>手机号: {{address.mobile}}</view>
+                <view class='address-info'>地址: {{address.address}}</view>
+                <view class='address-options'>
+                    <text id='{{address.id}}' class='edit-address fas fa-edit fa-2x fa-fw' catchtap='goToEditAddress'></text>
+                    <text id='{{address.id}}' class='delete-address far fa-trash-alt fa-2x fa-fw' catchtap='deleteAddress'></text>
+                </view>
+            </view>
+        </scroll-view>
+        <view class='to-add-address' bindtap='goToAddAddress'>添加地址</view>
+    </block>
+    <view wx:else class='add-address'>
+        <view class='add-address-button' bindtap='goToAddAddress'>添加地址</view>
+    </view>
+</view>

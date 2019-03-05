@@ -1,5 +1,5 @@
 <!--pages/index/cart/cart.wxml-->
-<view class='cart-wrapper'>
+<view hidden='{{!cart.length > 0 || !cart}}' class='cart-wrapper'>
     <view class='cart-box'>
         <text class='fas fa-shopping-cart fa-fw fa-2x font-icon'></text>
         <text class='cart-total'>￥{{total}}</text>

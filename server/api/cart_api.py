@@ -8,7 +8,7 @@ from ..db import db
 from ..model.cart import Cart
 
 parser = reqparse.RequestParser()
-parser.add_argument('items', type=str, help='{error_msg}')
+parser.add_argument('items', type=str, required=True, help='{error_msg}')
 
 
 class CartAPI(Resource):

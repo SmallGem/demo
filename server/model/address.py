@@ -14,6 +14,7 @@ class Address(db.Model, BaseMixin):
 
     def to_dist(self):
         return {
+            'id': str(self.id),
             'name': self.name,
             'gender': self.gender,
             'mobile': self.mobile,

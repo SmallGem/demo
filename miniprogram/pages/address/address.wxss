@@ -1,1 +1,100 @@
 /* pages/address/address.wxss */
+@charset 'UTF-8';
+
+.address {
+    flex-direction: column;
+}
+
+.address .to-add-address {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 96rpx;
+    font-size: 1.2em;
+    font-weight: 700;
+    text-align: center;
+    line-height: 96rpx;
+    color: #fff;
+    background: #ef4566;
+}
+
+.address .address-box {
+    position: relative;
+    height: 100%;
+    padding-bottom: 96rpx;
+    box-sizing: border-box;
+}
+
+.address .address-box .address-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 16rpx 128rpx 16rpx 16rpx;
+    border-bottom: 1px solid #d8d8d8;
+    box-sizing: border-box;
+}
+
+.address .address-box .address-item .address-options {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 128rpx;
+    box-sizing: border-box;
+}
+
+.address .address-box .address-item .address-options .edit-address,
+.address .address-box .address-item .address-options .delete-address {
+    margin-top: 16rpx;
+}
+
+.address .address-box .address-item .address-options .edit-address {
+    color: #83ae9b
+}
+
+.address .address-box .address-item .address-options .delete-address {
+    margin-right: 8rpx;
+    color: #ff0000;
+}
+
+.address .address-box .address-item .custom-info {
+    position: relative;
+    font-size: 1.2em;
+    font-weight: 700;
+}
+
+.address .address-box .address-item .custom-mobile {
+    position: relative;
+    font-size: 1.1em;
+}
+
+.address .address-box .address-item .address-info {
+    position: relative;
+    font-size: 1.1em;
+    color: #666;
+}
+
+.add-address {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 128rpx;
+    box-sizing: border-box;
+}
+
+.add-address-button {
+    position: relative;
+    width: 256rpx;
+    height: 64rpx;
+    text-align: center;
+    line-height: 64rpx;
+    background: #f69a9a;
+    border-radius: 8rpx;
+}
