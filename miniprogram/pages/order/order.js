@@ -51,10 +51,10 @@ Page({
     },
 
     updateCart() {
-        let cart = []
+        let items = []
         this.data.items.forEach(item => {
             if (item.count > 0) {
-                cart.push(item)
+                items.push(item)
             }
         })
         let token = app.globalData.token
@@ -63,7 +63,7 @@ Page({
             method: 'PUT',
             url: 'http://application.test:5000/cart/' + token,
             data: {
-                items: JSON.stringify(cart)
+                items: JSON.stringify(items)
             },
             success: res => {
                 let cart = JSON.parse(res.data.replace(new RegExp(/\'/g), '\"'))
@@ -109,11 +109,18 @@ Page({
             })
         }
 
+        let items = []
+        this.data.items.forEach(item => {
+            if (item.count > 0) {
+                items.push(item)
+            }
+        })
+
         wx.request({
             method: 'POST',
             url: 'http://application.test:5000/order',
             data: {
-                items: this.data.items,
+                items: JSON.stringify(items),
                 price: this.data.total.price,
                 address_id: this.data.address.id,
                 user_id: app.globalData.token

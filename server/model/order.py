@@ -22,5 +22,6 @@ class Order(db.Model, BaseMixin):
             'number': self.number,
             'items': self.items,
             'price': str(self.price),
-            'address': Address.query.get(self.address_id).to_dist()
+            'address': Address.query.get(self.address_id).to_dist(),
+            'created_at': str(self.created_at)
         }

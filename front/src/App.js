@@ -4,13 +4,14 @@ import Menu from './components/Menu';
 import Home from './pages/Home';
 import Item from './pages/item/Item';
 import AddItem from './pages/item/Add';
+import Order from './pages/order/Order';
 import User from './pages/user/User';
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeMenuItem: "home",
+            activeMenuItem: "order",
             item: null,
         }
     }
@@ -54,11 +55,14 @@ class App extends Component {
                     item={this.state.item}
                 />;
                 break;
+            case "orders":
+                page = <Order/>;
+                break;
             case "users":
                 page = <User/>;
                 break;
             default:
-                page = <Home/>;
+                page = <Order/>;
         }
         return page
     };

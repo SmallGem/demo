@@ -38,7 +38,6 @@ class CartAPI(Resource):
     def put(self, user_id):
         args = parser.parse_args()
 
-        print(args['items'])
         cart = Cart.query.filter_by(user_id=user_id).first()
         cart.items = args['items']
 

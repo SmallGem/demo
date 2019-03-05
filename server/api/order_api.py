@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
-from time import time, localtime
+from time import localtime, strftime, time
 import uuid
 
 from flask_restful import Resource, reqparse
@@ -29,10 +29,10 @@ class OrderAPI(Resource):
 
     def post(self):
         args = parser_post.parse_args()
+        print(args['items'])
 
         order_id = uuid.uuid1()
-        lt = localtime()
-        order_number = 'NM' + str(int(time())) + str(lt.tm_year) + str(lt.tm_mon) + str(lt.tm_mday)
+        order_number = 'NM' + str(int(time())) + str(strftime('%Y%m%d', localtime()))
         order = Order(
             id=order_id,
             number=order_number,
