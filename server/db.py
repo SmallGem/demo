@@ -8,6 +8,7 @@ from sqlalchemy.dialects.postgresql import UUID
 db = SQLAlchemy()
 
 
+# 类 id，创建，更新
 class BaseMixin(object):
 
     id = db.Column(UUID(as_uuid=True), primary_key=True, unique=True, nullable=False)

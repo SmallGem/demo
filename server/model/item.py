@@ -5,6 +5,7 @@ from ..db import db, BaseMixin
 from ..model.catalog import Catalog
 
 
+# 类商品 名字 图片 描述 价格 售出 目录id
 class Item(db.Model, BaseMixin):
 
     name = db.Column(db.String(16), unique=True, nullable=False)
@@ -14,6 +15,7 @@ class Item(db.Model, BaseMixin):
     sold = db.Column(db.Integer, default=0)
     catalog_id = db.Column(UUID, nullable=False)
 
+    # 格式化为字典，可隐藏数据 返回id，名字，图片，描述，价格已售出，目录
     def to_dist(self):
         return {
             'id': str(self.id),

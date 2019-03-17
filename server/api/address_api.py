@@ -5,14 +5,18 @@ from flask_restful import Resource, reqparse
 
 from ..db import db
 from ..model.address import Address
-
+# 解析器=请求解析，请求解析器 req=request
 parser = reqparse.RequestParser()
+# 解析器附加参数 名字，性别，电话号，地址(类型，必须，帮助=错误信息)
 parser.add_argument('name', type=str, required=True, help='{error_msg}')
 parser.add_argument('gender', type=int, required=True, help='{error_msg}')
 parser.add_argument('mobile', type=str, required=True, help='{error_msg}')
 parser.add_argument('address', type=str, required=True, help='{error_msg}')
 
+# post解析器=拷贝解析器
 parser_post = parser.copy()
+# post解析器.附加参数
+
 parser_post.add_argument('user_id', type=str, required=True, help='{error_msg}')
 
 

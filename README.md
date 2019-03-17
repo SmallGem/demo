@@ -25,6 +25,8 @@
 ### 配置前台
 
 ```bash
+# 创建目录
+:~/demo/server$ mkdir templates && mkdir static
 # 安装包
 :~/demo/front$ yarn install
 # 构建文件

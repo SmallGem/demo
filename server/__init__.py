@@ -15,7 +15,7 @@ def create_app():
     #     f.read()
     #     app.config.from_pyfile('config.py', silent=True)
 
-    # 确保实例文件夹存在
+    # 确保实例文件夹存在,os.makedirs创建目录，除了操作系统错误
     try:
         os.makedirs(app.instance_path)
     except OSError:
@@ -55,49 +55,35 @@ def create_app():
     api.add_resource(AddressAPI, '/address', '/address/<string:user_id>')
     api.add_resource(SearchAPI, '/search', '/search/<string:item_name>')
 
+    # 路线，入口，返回入口
     @app.route('/')
     def index():
         return render_template('index.html')
 
+    # 登录，方法GET，POST，如果请求方法为POST 用户名请求用户表单，密码请求密码表单
     @app.route('/login', methods=('GET', 'POST'))
     def login():
         if request.method == 'POST':
             username = request.form['username']
             password = request.form['password']
 
+            # 如果用户名为admin并且密码为admin，响应=制造响应重定向入口，返回响应
             if username == 'admin' and password == 'admin':
                 response = make_response(redirect(url_for('index')))
                 response.set_cookie('username', username)
                 return response
 
+        # 返回重定向入口
         return redirect(url_for('index'))
 
+    # 注销
     @app.route('/logout')
     def logout():
+        # 响应=制造响应重定向入口
         response = make_response(redirect(url_for('index')))
+        # 响应删除键为username的cookie
         response.delete_cookie('username')
+        # 返回响应
         return response
-
-    # # 测试代码
-    # avatar = UploadSet('avatar', default_dest=lambda instance: app.instance_path + '/avatar')
-    # configure_uploads(app, avatar)
-    #
-    # @app.route('/upload', methods=['GET', 'POST'])
-    # def upload():
-    #     if request.method == 'POST' and 'avatar' in request.files:
-    #         filename = avatar.save(request.files['avatar'])
-    #         flash("Avatar saved.")
-    #         return redirect(url_for('show', name=filename))
-    #     return render_template('upload.html')
-    #
-    # @app.route('/photo/<name>')
-    # def show(name):
-    #     url = avatar.url(name)
-    #     return render_template('show.html', url=url)
-    #
-    # @app.route('/cookie')
-    # def cookie():
-    #     session['session-name'] = 'Tricker Pan'
-    #     return 'Hello, session'
 
     return app

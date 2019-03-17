@@ -2,6 +2,7 @@
 from ..db import db, BaseMixin
 
 
+# 类 用户昵称 列 字符串最长16 头像 性别 国家 省份 城市 开放式认证系统 会话秘钥(唯一的，可空)
 class User(db.Model, BaseMixin):
 
     nickname = db.Column(db.String(16))
@@ -13,6 +14,7 @@ class User(db.Model, BaseMixin):
     openid = db.Column(db.String(64), unique=True, nullable=False)
     session_key = db.Column(db.String(64), unique=True, nullable=False)
 
+    # 数据格式化为字典，隐藏数据
     def to_dist(self):
         return {
             'id': str(self.id),
