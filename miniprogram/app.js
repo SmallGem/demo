@@ -57,7 +57,7 @@ App({
                     console.log(res.code)
                     wx.request({
                         method: 'POST',
-                        url: 'http://application.test:5000/user',
+                        url: 'http://localhost/user',
                         data: {
                             code: res.code,
                         },
@@ -95,7 +95,7 @@ App({
     },
 
     globalData: {
-        url: 'http://application.test:5000',
+        url: 'http://localhost',
         userInfo: null,
         address: null,
         token: null,

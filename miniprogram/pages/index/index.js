@@ -167,7 +167,7 @@ Page({
 
         wx.request({
             method: 'GET',
-            url: 'http://application.test:5000/cart/' + token,
+            url: app.globalData.url + '/cart/' + token,
             success: res => {
                 if (res.data) {
                     let cart = JSON.parse(res.data.replace(new RegExp(/\'/g), '\"'))
@@ -190,7 +190,7 @@ Page({
 
         wx.request({
             method: 'PUT',
-            url: 'http://application.test:5000/cart/' + token,
+            url: app.globalData.url + '/cart/' + token,
             data: {
                 items: JSON.stringify(cart)
             },

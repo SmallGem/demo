@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime
 from time import localtime, strftime, time
-import uuid
 
 from flask_restful import Resource, reqparse
 

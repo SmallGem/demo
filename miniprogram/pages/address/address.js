@@ -33,7 +33,7 @@ Page({
         let id = event.currentTarget.id
         wx.request({
             method: 'DELETE',
-            url: 'http://application.test:5000/address/' + id,
+            url: app.globalData.url + '/address/' + id,
             success: res => {
                 let addresses = this.data.addresses
                 for (let i = 0; i < addresses.length; i++) {
@@ -88,7 +88,7 @@ Page({
 
         wx.request({
             method: 'GET',
-            url: 'http://application.test:5000/address/' + token,
+            url: app.globalData.url + '/address/' + token,
             success: res => {
                 let addresses = res.data
                 console.log(addresses)

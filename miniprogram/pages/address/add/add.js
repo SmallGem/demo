@@ -49,7 +49,7 @@ Page({
         let urlShard = this.data.isModify ? '/' + this.data.id : ''
         wx.request({
             method: method,
-            url: 'http://application.test:5000/address' + urlShard,
+            url: app.globalData.url + '/address' + urlShard,
             data: {
                 name: this.data.name,
                 gender: this.data.genderIndex,

@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-from time import time
-import uuid
-
 from sqlalchemy.dialects.postgresql import JSON, UUID
 
 from . import db, BaseMixin

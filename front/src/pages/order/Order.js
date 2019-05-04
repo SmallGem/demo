@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Request from '../../utils/Request';
 import OrderTable from "../../components/table/OrderTable";
-import ItemTable from "../item/Item";
 
 class Order extends Component {
     constructor(props) {

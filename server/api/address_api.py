@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import uuid
-
 from flask_restful import Resource, reqparse
 
 from ..model import db

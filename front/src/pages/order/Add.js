@@ -126,9 +126,9 @@ class Add extends Component {
         };
 
         if (this.state.isModify) {
-            request.open("PUT", "http://application.test:5000/item/" + id)
+            request.open("PUT", "http://localhost:5000/item/" + id)
         } else {
-            request.open("POST", "http://application.test:5000/item");
+            request.open("POST", "http://localhost:5000/item");
         }
 
         request.send(formData);

@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import uuid
-
 from flask_restful import Resource, reqparse, current_app
 from flask_uploads import UploadSet
 from werkzeug.datastructures import FileStorage

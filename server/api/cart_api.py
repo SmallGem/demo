@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import uuid
-
 from flask_restful import Resource, reqparse
 
 from ..model import db
@@ -21,9 +19,7 @@ class CartAPI(Resource):
             cart = Cart.query.filter_by(user_id=user_id).first()
 
             if cart is None:
-                cart_id = uuid.uuid1()
                 cart = Cart(
-                    id=cart_id,
                     user_id=user_id,
                 )
 
