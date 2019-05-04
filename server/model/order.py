@@ -4,7 +4,7 @@ import uuid
 
 from sqlalchemy.dialects.postgresql import JSON, UUID
 
-from ..db import db, BaseMixin
+from . import db, BaseMixin
 from ..model.address import Address
 
 
@@ -16,6 +16,9 @@ class Order(db.Model, BaseMixin):
     price = db.Column(db.DECIMAL(6, 2), nullable=False)
     address_id = db.Column(UUID(as_uuid=True), nullable=False)
     user_id = db.Column(UUID(as_uuid=True), nullable=False)
+
+    def __init__(self, **kwargs):
+        super(Order, self).__init__(**kwargs)
 
     # 格式化为字典，可隐藏数据 返回id，数字，商品，价格，地址，创造
     def to_dist(self):

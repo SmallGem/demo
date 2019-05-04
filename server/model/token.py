@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
 
-from ..db import db
+from . import db
 
 
 # 类 记号 id=列，整数型主键=true，唯一=true，可空=false
@@ -14,3 +14,6 @@ class Token(db.Model):
     access_token = db.Column(db.String(512), nullable=False)
     expires_in = db.Column(db.Integer, nullable=False)
     expired_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow(), onupdate=datetime.utcnow())
+
+    def __init__(self, **kwargs):
+        super(Token, self).__init__(**kwargs)

@@ -3,7 +3,7 @@ import uuid
 
 from flask_restful import Resource, reqparse
 
-from ..db import db
+from ..model import db
 from ..model.address import Address
 # 解析器=请求解析，请求解析器 req=request
 parser = reqparse.RequestParser()
@@ -35,9 +35,7 @@ class AddressAPI(Resource):
     def post(self):
         args = parser_post.parse_args()
 
-        address_id = uuid.uuid1()
         address = Address(
-            id=address_id,
             name=args['name'],
             gender=args['gender'],
             mobile=args['mobile'],

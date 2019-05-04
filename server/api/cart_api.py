@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 import uuid
-import json
 
 from flask_restful import Resource, reqparse
 
-from ..db import db
+from ..model import db
 from ..model.cart import Cart
 
 parser = reqparse.RequestParser()

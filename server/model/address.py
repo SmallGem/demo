@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from sqlalchemy.dialects.postgresql import UUID
 
-from ..db import db, BaseMixin
+from . import db, BaseMixin
 
 
 # 地址 名字 性别 电话号 地址 用户id
@@ -12,6 +12,9 @@ class Address(db.Model, BaseMixin):
     mobile = db.Column(db.String(11), nullable=False)
     address = db.Column(db.String(200), nullable=False)
     user_id = db.Column(UUID(as_uuid=True), nullable=False)
+
+    def __init__(self, **kwargs):
+        super(Address, self).__init__(**kwargs)
 
     # 格式化为字典，可隐藏数据
     def to_dist(self):

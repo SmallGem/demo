@@ -5,7 +5,7 @@ import uuid
 
 from flask_restful import Resource, reqparse
 
-from ..db import db
+from ..model import db
 from ..model.order import Order
 
 parser = reqparse.RequestParser()
@@ -29,12 +29,9 @@ class OrderAPI(Resource):
 
     def post(self):
         args = parser_post.parse_args()
-        print(args['items'])
 
-        order_id = uuid.uuid1()
         order_number = 'NM' + str(int(time())) + str(strftime('%Y%m%d', localtime()))
         order = Order(
-            id=order_id,
             number=order_number,
             items=args['items'],
             price=args['price'],

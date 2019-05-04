@@ -1,5 +1,5 @@
 class Request {
-    constructor(method, urlShard, data = null, url = "http://application.test:5000") {
+    constructor(method, urlShard, data = null, url = "http://localhost") {
         this.request = new XMLHttpRequest();
         this.response = null;
         this.request.onreadystatechange = () => {

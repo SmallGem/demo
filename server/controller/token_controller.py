@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 
 from flask import current_app
 
-from ..db import db
+from ..model import db
 from ..model.token import Token
 from .request_controller import get
 

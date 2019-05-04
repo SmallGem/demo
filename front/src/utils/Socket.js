@@ -1,5 +1,5 @@
 class Socket {
-    constructor(url = "ws://application.test:5000/socket") {
+    constructor(url = "ws://localhost/socket") {
         this.socket = new WebSocket(url);
 
         this.socket.onopen = (event) => {

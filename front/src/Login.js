@@ -9,7 +9,7 @@ class Login extends Component {
                     <div className="container">
                         <div className="columns is-desktop is-centered">
                             <div className="column is-one-third-desktop">
-                                <form className="box" method="POST" action="http://application.test:5000/login">
+                                <form className="box" method="POST" action="http://localhost/login">
                                     <div className="field">
                                         <label className="label">账号</label>
                                         <div className="control has-icons-left has-icons-right">

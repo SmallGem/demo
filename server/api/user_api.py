@@ -5,9 +5,8 @@ from flask import current_app, session
 from flask_restful import Resource, reqparse
 
 from ..controller.request_controller import get
-from ..db import db
+from ..model import db
 from ..model.user import User
-from ..model.cart import Cart
 
 parser = reqparse.RequestParser()
 parser.add_argument('nickname', type=str, help='{error_msg}')
@@ -68,9 +67,7 @@ class UserAPI(Resource):
 
             return user.to_dist()
 
-        user_id = uuid.uuid1()
         user = User(
-            id=user_id,
             nickname=args['nickname'],
             avatar=args['avatar'],
             gender=args['gender'],

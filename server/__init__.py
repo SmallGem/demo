@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 
-from flask import Flask, request, flash, redirect, url_for, render_template, session, make_response
+from flask import Flask, request, redirect, url_for, render_template, make_response
 
 
 def create_app():
@@ -27,7 +27,7 @@ def create_app():
     CORS(app)
 
     # 加载数据库
-    from .db import db
+    from .model import db
     db.init_app(app)
 
     # 上传设置

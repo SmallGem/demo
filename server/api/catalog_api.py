@@ -3,7 +3,7 @@ import uuid
 
 from flask_restful import Resource, reqparse
 
-from ..db import db
+from ..model import db
 from ..model.catalog import Catalog
 from ..model.item import Item
 
@@ -26,9 +26,7 @@ class CatalogAPI(Resource):
     def post(self):
         args = parser.parse_args()
 
-        catalog_id = uuid.uuid1()
         catalog = Catalog(
-            id=catalog_id,
             name=args['name']
         )
 

@@ -5,7 +5,7 @@ from flask_restful import Resource, reqparse, current_app
 from flask_uploads import UploadSet
 from werkzeug.datastructures import FileStorage
 
-from ..db import db
+from ..model import db
 from ..model.item import Item
 
 parser = reqparse.RequestParser()
@@ -39,9 +39,7 @@ class ItemAPI(Resource):
         else:
             image = None
 
-        item_id = uuid.uuid1()
         item = Item(
-            id=item_id,
             name=args['name'],
             image=image,
             description=args['description'],
