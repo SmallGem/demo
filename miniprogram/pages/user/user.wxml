@@ -13,10 +13,12 @@
             <text class="user-nickname">{{userInfo.nickName}}</text>
         </block>
     </view>
-    <view>
+    <view class="user-items" bindtap='goToOrder'>
         <text>我的订单</text>
+        <text class="fas fa-chevron-right"></text>
     </view>
-    <view>
+    <view class="user-items" bindtap='goToAddress'>
         <text>地址管理</text>
+        <text class="fas fa-chevron-right"></text>
     </view>
 </view>

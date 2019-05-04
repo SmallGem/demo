@@ -6,13 +6,16 @@ import Item from './pages/item/Item';
 import AddItem from './pages/item/Add';
 import Order from './pages/order/Order';
 import User from './pages/user/User';
+import AddOrder from "./pages/order/Add";
+
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeMenuItem: "order",
+            activeMenuItem: "orders",
             item: null,
+            order: null,
         }
     }
 
@@ -37,6 +40,13 @@ class App extends Component {
         })
     }
 
+    modifyOrder(order) {
+        this.setState({
+            order: order,
+            activeMenuItem: "addOrder",
+        })
+    }
+
     renderPage() {
         let page;
         switch (this.state.activeMenuItem) {
@@ -56,7 +66,16 @@ class App extends Component {
                 />;
                 break;
             case "orders":
-                page = <Order/>;
+                page = <Order
+                    selectMenuOrder={pageId => this.selectMenuOrder(pageId)}
+                    modifyOrder={order => this.modifyOrder(order)}
+                />;
+                break;
+            case "addOrder":
+                page = <AddOrder
+                    selectMenuOrder={pageId => this.selectMenuOrder(pageId)}
+                    order={this.state.order}
+                />;
                 break;
             case "users":
                 page = <User/>;

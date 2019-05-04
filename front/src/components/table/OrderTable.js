@@ -1,7 +1,14 @@
 import React, {Component} from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import Request from "../../utils/Request";
 
 class OrderList extends Component {
+    static deleteOrder(orderId) {
+        console.log(orderId);
+        let urlShard = "/order/" + orderId;
+        new Request("DELETE", urlShard);
+    }
+
     render() {
         return this.props.orders.map(order => {
             console.log(order);
@@ -39,13 +46,18 @@ class OrderList extends Component {
                         <p>{address.address}</p>
                     </th>
                     <th>{created_at}</th>
+                    <td>
+                        <button className="button is-info" onClick={() => this.props.modifyOrder(order)}>修改</button>
+                        <button className="button is-danger" onClick={() => OrderList.deleteOrder(id)}>删除</button>
+                    </td>
                 </tr>
             )
         })
     }
 }
 
-class OrderTable extends Component {
+class OrderTable
+    extends Component {
     render() {
         return (
             <table className="table is-hoverable is-bordered">
@@ -56,10 +68,14 @@ class OrderTable extends Component {
                     <th>总价</th>
                     <th>地址</th>
                     <th>时间</th>
+                    <th className="order-option">操作</th>
                 </tr>
                 </thead>
                 <tbody>
-                <OrderList orders={this.props.orders || []}/>
+                <OrderList
+                    orders={this.props.orders || []}
+                    modifyOrder={order => this.props.modifyOrder(order)}
+                />
                 </tbody>
             </table>
         )

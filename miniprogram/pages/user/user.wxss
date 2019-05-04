@@ -5,6 +5,10 @@
     flex-direction: column;
 }
 
+.user > view {
+    margin-bottom: 32rpx;
+}
+
 .user-info {
     position: relative;
     display: flex;
@@ -42,4 +46,17 @@
 .user-info .user-nickname {
     font-size: 1.2em;
     font-weight: 700;
+}
+
+.user-items {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 64rpx;
+    padding: 0 38rpx;
+    border-top: 1px solid #d8d8d8;
+    border-bottom: 1px solid #d8d8d8;
+    box-sizing: border-box;
 }

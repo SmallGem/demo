@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Request from '../../utils/Request';
 import OrderTable from "../../components/table/OrderTable";
+import ItemTable from "../item/Item";
 
 class Order extends Component {
     constructor(props) {
@@ -21,10 +22,13 @@ class Order extends Component {
     }
 
     render() {
-        return(
+        return (
             <div className="container is-widescreen">
                 <h2 className="title is-2">订单列表</h2>
-                <OrderTable orders={this.state.orders}/>
+                <OrderTable
+                    orders={this.state.orders}
+                    modifyOrder={order => this.props.modifyOrder(order)}
+                />
             </div>
         )
     }

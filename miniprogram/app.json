@@ -1,39 +1,41 @@
 {
-    "pages": [
-        "pages/index/index",
-        "pages/user/user",
-        "pages/user/order/order",
-        "pages/order/order",
-        "pages/address/address",
-        "pages/address/add/add"
-    ],
-    "window": {
-        "navigationBarBackgroundColor": "#ef4566",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "我的小店",
-        "backgroundColor": "#f69a9a",
-        "backgroundTextStyle": "dark",
-        "backgroundColorTop": "#f69a9a",
-        "backgroundColorBottom": "#f69a9a"
-    },
-    "tabBar": {
-        "color": "#c8c8a9",
-        "selectedColor": "#ef4566",
-        "backgroundColor": "#fff",
-        "borderStyle": "black",
-        "position": "bottom",
-        "list": [
-            {
-                "pagePath": "pages/index/index",
-                "text": "店铺",
-                "iconPath": "icons/store.png",
-                "selectedIconPath": "icons/store-selected.png"
-            },{
-                "pagePath": "pages/user/user",
-                "text": "我的",
-                "iconPath": "icons/user.png",
-                "selectedIconPath": "icons/user-selected.png"
-            }
-        ]
-    }
+  "pages": [
+    "pages/index/index",
+    "pages/user/user",
+    "pages/user/order/order",
+    "pages/order/order",
+    "pages/address/address",
+    "pages/address/add/add"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#ef4566",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "我的小店",
+    "backgroundColor": "#f69a9a",
+    "backgroundTextStyle": "dark",
+    "backgroundColorTop": "#f69a9a",
+    "backgroundColorBottom": "#f69a9a"
+  },
+  "tabBar": {
+    "color": "#c8c8a9",
+    "selectedColor": "#ef4566",
+    "backgroundColor": "#fff",
+    "borderStyle": "black",
+    "position": "bottom",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "店铺",
+        "iconPath": "icons/store.png",
+        "selectedIconPath": "icons/store-selected.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "我的",
+        "iconPath": "icons/user.png",
+        "selectedIconPath": "icons/user-selected.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
 }

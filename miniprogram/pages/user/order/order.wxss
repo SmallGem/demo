@@ -1,1 +1,24 @@
 /* pages/user/order/order.wxss */
+@charset'UTF-8';
+
+.user {
+    flex-direction: column;
+}
+
+.user>view {
+    margin-bottom: 32rpx;
+}
+
+
+.user-items{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 64rpx;
+    padding: 0 32rpx;
+    border-top: 1px solid #d8d8d8;
+    border-bottom: 1px solid #582539;
+    box-sizing: border-box;
+ }

@@ -48,7 +48,25 @@ class OrderAPI(Resource):
         return order.to_dist()
 
     def put(self, user_id):
-        pass
+        args = parser.parse_args()
+
+        order = Order.query.get(user_id)
+
+        if args['item'] != order.item:
+            order.item = args['item']
+        if args['price'] != order.price:
+            order.price = args['price']
+        if args['address'] != order.address:
+            order.address = args['address']
+
+        db.session.commit()
+
+        return order.to_dist()
 
     def delete(self, user_id):
-        pass
+        order = Order.query.get(user_id)
+
+        db.session.delete(order)
+        db.session.commit()
+
+        return 'ok'
